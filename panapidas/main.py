@@ -19,8 +19,10 @@
 
 import sys
 import os
-import json
+import time
+import uuid
 
+from collections import defaultdict
 from gettext import gettext as _
 
 import gi
@@ -34,14 +36,17 @@ from gi.repository import Gtk, Gio, Adw, GLib, GObject, GtkSource, Gdk
 from panapidas.page.preferences.preferences_page import PreferencesPage
 from panapidas.widget.delete_dialog import DeleteDialog
 from panapidas.widget.import_dialog import ImportDialog
+from panapidas.request.secret_manager import SecretManager
 from panapidas.request.import_collection import ImportCollection
 from panapidas.model.requests import Request, RequestGroup, RequestItem
 from panapidas.model.env_object import EnvObject
 from panapidas.data_management import DataManagement
 from panapidas.window import PanapidasWindow
 
+
 APPLICATION_NAME = "Panapidas"
 APPLICATION_DATA_FILENAME = "requests.json"
+APPLICATION_ID = "eltonarodrigues.org.codeberg.panapidas"
 
 
 class PanapidasApplication(Adw.Application):
@@ -49,7 +54,7 @@ class PanapidasApplication(Adw.Application):
 
     def __init__(self):
         super().__init__(
-            application_id="eltonarodrigues.org.codeberg.panapidas",
+            application_id=APPLICATION_ID,
             flags=Gio.ApplicationFlags.DEFAULT_FLAGS,
             resource_base_path="/eltonarodrigues/org/codeberg/panapidas",
         )
@@ -58,9 +63,15 @@ class PanapidasApplication(Adw.Application):
 
         self.dataManagement = DataManagement()
 
-        env_group = self.dataManagement.load_envs()
+        self.env_groups = self.dataManagement.load_envs()
+
+        self.secret_manager = SecretManager(APPLICATION_ID)
+
         self.envs_store = Gio.ListStore.new(EnvObject)
-        self.envs_store.splice(0, 0, additions=env_group)
+        self.secret_manager.load_envs(
+            {},          # ou None para todos do schema
+            on_result= self._config_envs,
+        )
 
         request_group = self.dataManagement.load_requests()
         self.request_group_store = Gio.ListStore.new(RequestItem)
@@ -90,18 +101,54 @@ class PanapidasApplication(Adw.Application):
 
         self.win = None
 
+    def _config_envs(self, envs: list[EnvObject], _):
+        env_objects = []
+
+        for group in self.env_groups.items():
+            if group[0] in envs:
+                env_objects.append(EnvObject(id=group[0], name=group[1], envs_map=envs[group[0]]))
+            else:
+                env_objects.append(EnvObject(id=group[0], name=group[1], envs_map=[]))
+
+        self.envs_store.splice(0, 0, additions=env_objects)
+
     def create_child_model(self, item):
         item_type = GObject.type_name(item.__gtype__)
         if item_type == "RequestGroup":
             return item.children
 
-    def on_save(self, _: PanapidasWindow, type: str, send_notification):
+    def on_save(self, _: PanapidasWindow, env_object: EnvObject, type: str, send_notification):
         if type == "request":
             self.dataManagement.save_requests(self.request_group_store)
             send_notification("Request saved!")
+            return
 
         if type == "env":
             self.dataManagement.save_envs(self.envs_store)
+
+            if env_object.status == "DELETED":
+                self.secret_manager.delete_secret({"group_id": env_object.id})
+                send_notification("Environment Group deleted!")
+                return
+
+            for env in env_object.dict_envs:
+                if env["status"] == "DELETED":
+                    self.secret_manager.delete_secret(
+                        {
+                            "var_id": str(env["id"]),
+                            "group_id": env_object.id,
+                            "variable": env["key"],
+                        }
+                    )
+                
+                if env["status"] == "UPDATED":
+                    self.secret_manager.save(env["key"], env["value"], {
+                        "var_id": str(env["id"]),
+                        "group_id": env_object.id,
+                        "variable": env["key"],
+                    })
+
+            env_object.clear_deleted_envs()
             send_notification("Environment saved!")
 
     def do_activate(self):

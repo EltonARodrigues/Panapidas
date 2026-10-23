@@ -11,7 +11,7 @@ class EnvConfigPage(Adw.NavigationPage):
     __gtype_name__ = "EnvConfigPage"
 
     __gsignals__ = {
-        "env-saved": (GObject.SignalFlags.RUN_FIRST, None, ()),
+        "env-saved": (GObject.SignalFlags.RUN_FIRST, None, (EnvObject,)),
     }
 
     env_list = Gtk.Template.Child()
@@ -35,8 +35,7 @@ class EnvConfigPage(Adw.NavigationPage):
     @Gtk.Template.Callback()
     def on_env_save(self, _: Gtk.Button):
         active_envs = ActiveEnvs()
-        if active_envs.id == self.env_object.id:
-            active_envs.initialize(
-                self.env_object.id, self.env_object.name, self.env_object.envs
-            )
-        self.emit("env-saved")
+        active_envs.initialize(
+            self.env_object.id, self.env_object.name, self.env_object.envs
+        )
+        self.emit("env-saved", self.env_object)

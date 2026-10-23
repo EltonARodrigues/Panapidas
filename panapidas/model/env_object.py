@@ -12,11 +12,12 @@ class EnvObject(GObject.Object):
         "env-changed": (GObject.SignalFlags.RUN_FIRST, None, ()),
     }
 
-    def __init__(self, id=None, name=None, envs_map=[]):
+    def __init__(self, id=None, name=None, envs_map=[], status=None):
         super().__init__()
-
+        print(f'EnvObject {status}')
         self._id = str(uuid.uuid4()) if id is None else id
         self._name = name
+        self.status = status or "UNCHANGE"
         self._envs = EnvObject.map_builder(envs_map)
 
     @GObject.Property(type=int)
@@ -58,6 +59,13 @@ class EnvObject(GObject.Object):
             "envs_map": [env_map.to_dict() for env_map in self._envs],
         }
 
+    def clear_deleted_envs(self):
+        print("clear_deleted_envs")
+        print(self._envs)
+        teste = list(filter(lambda env: env.status != "DELETED", self._envs))
+        print(teste)
+        self._envs = teste
+        self.emit("env-changed")
 
 class ActiveEnvs(EnvObject):
     _instance = None
@@ -87,10 +95,11 @@ class ActiveEnvs(EnvObject):
     def set_env(self, key: str, value: str) -> None:
         for env in self._envs:
             if env.key == key:
+                env.status = "UPDATED"
                 env.value = value
                 break
         else:
-            self._envs.append(MapEntry(id=str(uuid.uuid4()), key=key, value=value))
+            self._envs.append(MapEntry(id=str(uuid.uuid4()), key=key, value=value, active=True, status="UPDATED"))
         self.emit("env-changed")
 
     def get_env(self, key: str) -> str | None:

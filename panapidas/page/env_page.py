@@ -13,7 +13,7 @@ class EnvPage(Adw.NavigationPage):
 
     __gsignals__ = {
         "env-selected": (GObject.SignalFlags.RUN_FIRST, None, (EnvObject,)),
-        "env-saved": (GObject.SignalFlags.RUN_FIRST, None, ()),
+        "env-saved": (GObject.SignalFlags.RUN_FIRST, None, (EnvObject,)),
     }
 
     list_envs = Gtk.Template.Child()
@@ -41,8 +41,9 @@ class EnvPage(Adw.NavigationPage):
 
     @Gtk.Template.Callback()
     def on_create_env(self, widget: Gtk.Button):
-        self.env_store.append(EnvObject(name="New Environment"))
-        self.emit("env-saved")
+        new_env_group = EnvObject(name="New Environment", envs_map=[], status="NEW")
+        self.env_store.append(new_env_group)
+        self.emit("env-saved", new_env_group)
 
     @Gtk.Template.Callback()
     def on_setup_factory(self, _: Gtk.SignalListItemFactory, list_item: Gtk.ListItem):
@@ -85,7 +86,7 @@ class EnvPage(Adw.NavigationPage):
         row.set_end_widget(control_box)
 
         label = row.get_first_child()
-        label.set_text(env_object.name)
+        label.set_text(env_object.name or "Unnamed Environment")
 
         gesture = Gtk.GestureClick()
         gesture.set_button(MOUSE_CLICK)
@@ -144,8 +145,10 @@ class EnvPage(Adw.NavigationPage):
             print("EnvObject not found in the store.")
             return
 
+        deleted_group_env = self.env_store[position]
+        deleted_group_env.status = "DELETED"
         self.env_store.remove(position)
-        self.emit("env-saved")
+        self.emit("env-saved", deleted_group_env)
 
     def _on_delete_row(self, widget: Gtk.Button, env_object: EnvObject):
         self.delete_env_dialog.object = env_object
@@ -165,7 +168,7 @@ class EnvPage(Adw.NavigationPage):
 
         env_group = self.env_store.get_item(position)
         env_group.name = widget.get_value()
-        self.emit("env-saved")
+        self.emit("env-saved", env_group)
 
     def _on_rename_env(self, widget: Gtk.Button, env_object: EnvObject):
         dialog = ChangeValueDialog(

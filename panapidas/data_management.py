@@ -91,27 +91,31 @@ class DataManagement:
         self._request_group = RequestGroup(data["id"], data["name"], data["children"])
         return self._request_group
 
-    def load_envs(self) -> list[EnvObject]:
+    def load_envs(self) -> dict:
         data = self._load(self.env_path)
 
         if not data:
-            return []
+            return {}
 
-        env_list = [
-            EnvObject(env["id"], env["name"], env["envs_map"]) for env in data["envs"]
-        ]
-        return env_list
+        # env_list = [
+        #     EnvObject(env["id"], env["name"]) for env in data["envs"]
+        # ]
+
+        return data
 
     def save_envs(self, envs_store):
 
-        envs = []
+        envs = {}
         for i in range(envs_store.get_n_items()):
-            objeto = envs_store.get_item(i)
-            envs.append(objeto.to_dict())
+            env_group = envs_store.get_item(i)
+            # envs.append({
+            #     "id": env_group.id,
+            #     "name": env_group.name,
+            # })
+            envs[env_group.id] = env_group.name
 
-        env_dict = {"envs": envs}
         with open(self.env_path, "w", encoding="utf-8") as f:
-            json.dump(env_dict, f, indent=2, ensure_ascii=False)
+            json.dump(envs, f, indent=2, ensure_ascii=False)
 
         print(f"Dados de envs salvos com sucesso em: {self.env_path}")
 

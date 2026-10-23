@@ -17,6 +17,8 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+import uuid
+
 from gi.repository import Adw, Gtk, GObject, Gio
 
 from panapidas.model.map_entry import MapEntry
@@ -48,15 +50,20 @@ class MapListMenu(GObject.Object):
         self.map_env_template = map_env_template
 
         self.items = items.copy()
-        self.items.append(MapEntry(id=len(self.items) + 1, key="", value="", active=True))
+        self.items.append(MapEntry(id=str(uuid.uuid4()), key="", value="", active=True))
 
         self.list_model = Gio.ListStore(item_type=MapEntry)
         self.list_model.splice(0, 0, additions=self.items)
 
+        self.deleted_items = []
+
         list_box.bind_model(self.list_model, self._on_create_list_row)
 
-    def _on_destroy_row(self, event_name: str, row_id: int):
+    def _on_destroy_row(self, event_name: str, model: MapEntry):
         row_count = self.list_model.get_n_items()
+
+        model.status="DELETED"
+        self.deleted_items.append(model)
 
         for index in range(row_count):
             item = self.list_model.get_item(index)
@@ -64,8 +71,9 @@ class MapListMenu(GObject.Object):
             if index + 1 == row_count:
                 return False
 
-            if item.id == row_id:
+            if item.id == model.id:
                 self.list_model.remove(index)
+                self._on_map_change()
                 return True
 
         self._on_map_change()
@@ -86,20 +94,21 @@ class MapListMenu(GObject.Object):
     def _on_entry_changed(
         self, entry: Gtk.Entry, entry_type: str, list_model: GObject.Object
     ):
-        new_id = list_model.id + 1
-        has_row = [model for model in self.list_model if model.id == new_id]
+        has_row = [model for model in self.list_model if len(model.key) == 0 and len(model.value) == 0]
 
         if not has_row:
-            self.list_model.append(MapEntry(id=new_id, key="", value="", active=True))
+            self.list_model.append(MapEntry(id=str(uuid.uuid4()), key="", value="", active=True))
 
         text_value = entry.get_text()
 
         list_model.active = True
 
         if entry_type == "key":
+            list_model.status="UPDATED"
             list_model.key = text_value
 
         if entry_type == "value":
+            list_model.status="UPDATED"
             list_model.value = text_value
 
         if self.map_env_template:
@@ -139,7 +148,7 @@ class MapListMenu(GObject.Object):
             valign="center",
         )
 
-        close_button.connect("clicked", self._on_destroy_row, model.id)
+        close_button.connect("clicked", self._on_destroy_row, model)
 
         if self.activatable:
             check_entry = Gtk.CheckButton();
@@ -179,7 +188,11 @@ class MapListMenu(GObject.Object):
         return linked_box
 
     def get_map_entry(self):
-        return [row for row in self.list_model if len(row.key) > 0]
+        entrys = [row for row in self.list_model if len(row.key) > 0]
+
+        for deleted_item in self.deleted_items:
+            entrys.append(deleted_item)
+        return entrys
 
     def get_formated_dict(self):
         items_dict = {

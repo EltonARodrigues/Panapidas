@@ -31,7 +31,7 @@ from panapidas.model.requests import Request
 class PanapidasWindow(Adw.ApplicationWindow):
     __gtype_name__ = "PanapidasWindow"
 
-    __gsignals__ = {"save-signal": (GObject.SIGNAL_RUN_FIRST, GObject.TYPE_NONE, (str,))}
+    __gsignals__ = {"save-signal": (GObject.SIGNAL_RUN_FIRST, GObject.TYPE_NONE, (object, str,))}
 
     split_view = Gtk.Template.Child()
     page_navigation_view = Gtk.Template.Child()
@@ -98,8 +98,9 @@ class PanapidasWindow(Adw.ApplicationWindow):
                 self.request_selected.on_change_env(self.env_selected)
 
     @Gtk.Template.Callback()
-    def on_save(self, _, type: str = "request"):
-        self.emit("save-signal", type)
+    def on_save(self, _, object = None, type: str = "request"):
+        print("on_save")
+        self.emit("save-signal", object, type)
 
     def show_toast(self, msg: str):
         toast = Adw.Toast.new(msg)

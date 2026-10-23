@@ -75,13 +75,16 @@ class Request(RequestItem):
 
         if isinstance(entry_list, dict):
             return [
-                MapEntry(id=index, key=form[0], value=form[1])
+                MapEntry(id=str(uuid.uuid4()), key=form[0], value=form[1])
                 for index, form in enumerate(entry_list.items())
             ]
 
         return [
             MapEntry(
-                id=index, key=form["key"], value=form["value"], active=form.get("active", True)
+                id=str(uuid.uuid4()),
+                key=form["key"],
+                value=form["value"],
+                active=form.get("active", True),
             )
             for index, form in enumerate(entry_list)
         ]
@@ -175,17 +178,21 @@ class Request(RequestItem):
 class RequestGroup(RequestItem):
     __gtype_name__ = "RequestGroup"
 
-    def __init__(self, id=None, name=None, children_list=[]):
+    def __init__(self, id=None, name=None, children_list=[], env_groups=None):
 
         super().__init__(name_atr=name)
         self.id = str(uuid.uuid4()) if id is None else id
+        self.env_groups = env_groups or []
         self.children = RequestGroup.children_builder(children_list)
 
     @staticmethod
     def build_map_entry(map_list: list) -> list[MapEntry]:
         return [
             MapEntry(
-                id=row["id"], key=row["key"], value=row["value"], active=row.get("active", True)
+                id=row["id"],
+                key=row["key"],
+                value=row["value"],
+                active=row.get("active", True),
             )
             for row in map_list
         ]

@@ -4,13 +4,14 @@ from gi.repository import GObject
 class MapEntry(GObject.Object):
     __gtype_name__ = "MapEntry"
 
-    def __init__(self, id: int, key: str, value: str, active: bool = True):
+    def __init__(self, id: int, key: str, value: str, active: bool = True, status: str ="UNCHANGED"):
         super().__init__()
 
         self._id = id
         self._active = active
         self._key = key
         self._value = value
+        self._status = status
 
     @GObject.Property(type=int)
     def id(self) -> int:
@@ -23,6 +24,14 @@ class MapEntry(GObject.Object):
     @GObject.Property(type=str)
     def value(self) -> str:
         return self._value
+
+    @GObject.Property(type=str)
+    def status(self) -> str:
+        return self._status
+
+    @status.setter
+    def status(self, status: str):
+        self._status = status
 
     @GObject.Property(type=bool, default=True)
     def active(self) -> bool:
@@ -52,5 +61,6 @@ class MapEntry(GObject.Object):
             "key": self.key,
             "value": self.value,
             "active": self.active,
+            "status": self.status,
         }
 

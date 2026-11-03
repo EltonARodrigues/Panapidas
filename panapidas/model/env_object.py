@@ -14,7 +14,6 @@ class EnvObject(GObject.Object):
 
     def __init__(self, id=None, name=None, envs_map=[], status=None):
         super().__init__()
-        print(f'EnvObject {status}')
         self._id = str(uuid.uuid4()) if id is None else id
         self._name = name
         self.status = status or "UNCHANGE"
@@ -60,11 +59,7 @@ class EnvObject(GObject.Object):
         }
 
     def clear_deleted_envs(self):
-        print("clear_deleted_envs")
-        print(self._envs)
-        teste = list(filter(lambda env: env.status != "DELETED", self._envs))
-        print(teste)
-        self._envs = teste
+        self._envs = list(filter(lambda env: env.status != "DELETED", self._envs))
         self.emit("env-changed")
 
 class ActiveEnvs(EnvObject):
@@ -86,8 +81,8 @@ class ActiveEnvs(EnvObject):
 
         self._initialized = True
 
-    def initialize(self, id=None, name=None, env_list=None):
-        self._id = str(uuid.uuid4()) if id is None else id
+    def initialize(self, env_id=None, name=None, env_list=None):
+        self._id = env_id
         self._name = name
         self._envs = env_list or []
         self.emit("env-changed")

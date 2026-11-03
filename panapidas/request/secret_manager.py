@@ -49,7 +49,6 @@ class SecretManager:
 
     def save_sync(self, name: str, value: str, attr: dict) -> bool:
         try:
-            print(attr)
             self._get_service().store_sync(
                 self.schema,
                 attr,
@@ -130,7 +129,6 @@ class SecretManager:
             secret_value = item.get_secret().get_text()
 
             attr = dict(item.get_attributes() or {})
-            print(attr)
 
             group_id = attr.get("group_id", "<sem tipo>")
             env_var_dict = {"id": attr["var_id"], "key": attr["variable"], "value": secret_value}

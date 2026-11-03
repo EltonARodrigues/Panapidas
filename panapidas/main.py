@@ -39,7 +39,7 @@ from panapidas.widget.import_dialog import ImportDialog
 from panapidas.request.secret_manager import SecretManager
 from panapidas.request.import_collection import ImportCollection
 from panapidas.model.requests import Request, RequestGroup, RequestItem
-from panapidas.model.env_object import EnvObject
+from panapidas.model.env_object import ActiveEnvs, EnvObject
 from panapidas.data_management import DataManagement
 from panapidas.window import PanapidasWindow
 
@@ -127,6 +127,11 @@ class PanapidasApplication(Adw.Application):
         if env_object.status == "DELETED":
             self.secret_manager.delete_secret({"group_id": env_object.id})
             send_notification("Environment Group deleted!")
+
+            active_env = ActiveEnvs()
+            if active_env.id == env_object.id:
+                active_env.initialize(None, None, [])
+
             return
 
         for env in env_object.dict_envs:
@@ -147,6 +152,11 @@ class PanapidasApplication(Adw.Application):
                 })
 
         env_object.clear_deleted_envs()
+
+        finded, position, finded_store = self.dataManagement.find_item_index(self.envs_store, env_object.id)
+        if finded:
+            finded_store[position].envs = env_object.envs
+
         send_notification("Environment saved!")
 
     def do_activate(self):

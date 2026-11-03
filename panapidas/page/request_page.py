@@ -130,7 +130,7 @@ class RequestPage(Adw.Bin):
         label.set_text(label_template_text.format(text))
 
     def on_change_env(self, env_group: EnvObject):
-        self.envs = env_group.dict_envs
+        self.envs = env_group.dict_envs if hasattr(env_group, 'dict_envs') else []
         self._load_request(self.request)
 
     def _render_response(self, response: Response) -> bool:

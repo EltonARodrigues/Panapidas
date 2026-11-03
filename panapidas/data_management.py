@@ -163,16 +163,16 @@ class DataManagement:
                 finded, position = store.find(item)
                 if finded:
                     return finded, position, store
-                return False
+                return False, None, None
 
             item_type = GObject.type_name(item.__gtype__)
-            if item_type == "Request":
+            if item_type != "RequestGroup":
                 continue
 
             finded = DataManagement.find_item_index(item.children, id)
             if finded:
-                return finded
-        return False
+                return finded, None, None
+        return False, None, None
 
     @staticmethod
     def remove_by_id(store: Gio.ListStore, id: str):

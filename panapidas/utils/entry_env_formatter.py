@@ -72,10 +72,10 @@ def find_match_at(text, index) -> str | None:
 
 def entry_env_change_gesture(entry: Gtk.Entry):
     gesture = Gtk.GestureClick.new()
-    gesture.connect("pressed", on_entry_clicked, entry)
+    gesture.connect("pressed", _on_entry_clicked, entry)
     entry.get_first_child().add_controller(gesture)
 
-def on_entry_clicked(gesture, n_press, x, y, entry):
+def _on_entry_clicked(gesture, n_press, x, y, entry):
     text = entry.get_text()
     pango_context = entry.get_pango_context()
 
@@ -96,6 +96,13 @@ def on_entry_clicked(gesture, n_press, x, y, entry):
 
 def _on_change_env_key(key: str, root_widget: Gtk.Widget = None):
     active_env = ActiveEnvs()
+
+    print(f"Active env: {active_env.id}, key: {key}")
+    if active_env.id is None:
+        root_widget.emit("notify-signal", "No active environment selected. Please select an environment to edit its variables.")
+        return
+
+
     env_value_dialog = ChangeValueDialog(
         value=active_env.get_env(key),
         heading=f"Environment Variable: {key}",

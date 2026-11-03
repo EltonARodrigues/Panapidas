@@ -33,7 +33,8 @@ class PanapidasWindow(Adw.ApplicationWindow):
 
     __gsignals__ = {
         "save-env-signal": (GObject.SIGNAL_RUN_FIRST, GObject.TYPE_NONE, (object,)),
-        "save-request-signal": (GObject.SIGNAL_RUN_FIRST, GObject.TYPE_NONE, ())
+        "save-request-signal": (GObject.SIGNAL_RUN_FIRST, GObject.TYPE_NONE, ()),
+        "notify-signal": (GObject.SIGNAL_RUN_FIRST, GObject.TYPE_NONE, (str,))
     }
 
     split_view = Gtk.Template.Child()
@@ -49,24 +50,17 @@ class PanapidasWindow(Adw.ApplicationWindow):
     def __init__(self, group_list_model: Gtk.TreeListModel, envs_store: Gio.ListStore, **kwargs):
         super().__init__(**kwargs)
 
-        self.env_selected = None
         self.request_selected = None
         self.request_id_selected = None
 
-        self.env_group_dropdown.set_expression(
-            Gtk.ClosureExpression.new(
-                GObject.TYPE_STRING,
-                lambda item: item.name if item else "",
-                [],
-            )
-        )
+        self.connect("notify-signal", lambda _, msg: self.show_toast(msg))
 
         self.activeEnv = ActiveEnvs()
 
-        self.env_group_dropdown.set_model(Gtk.SingleSelection.new(envs_store))
+        self.env_store = envs_store
+        self._load_env_dropdown()
 
-
-        self.env_layout = EnvPage(env_store=envs_store)
+        self.env_layout = EnvPage(env_store=self.env_store)
         self.env_layout.connect("env-selected", self._on_env_selected)
         self.env_layout.connect("env-saved", self.on_save, 'env')
 
@@ -89,16 +83,27 @@ class PanapidasWindow(Adw.ApplicationWindow):
     def _on_open_envs(self, _action: Gio.SimpleAction, _target):
         self.page_navigation_view.push(self.env_layout)
 
+    def _load_env_dropdown(self):
+        self.env_group_dropdown.set_expression(
+            Gtk.ClosureExpression.new(
+                GObject.TYPE_STRING,
+                lambda item: item.name if item else "",
+                [],
+            )
+        )
+        self.env_group_dropdown.set_model(Gtk.SingleSelection.new(self.env_store))
+
     @Gtk.Template.Callback()
     def on_env_group_selected(self, dropdown: Gtk.DropDown, _: GObject):
         env_group = dropdown.get_selected_item()
 
         if env_group:
             self.activeEnv.initialize(env_group.id, env_group.name, env_group.envs)
-            self.env_selected = env_group;
+        else:
+            self.activeEnv.initialize(None, None, [])
 
-            if self.request_selected:
-                self.request_selected.on_change_env(self.env_selected)
+        if self.request_selected:
+            self.request_selected.on_change_env(env_group)
 
     @Gtk.Template.Callback()
     def on_save(self, _, object = None, type: str = "request"):
@@ -107,6 +112,7 @@ class PanapidasWindow(Adw.ApplicationWindow):
             return
 
         if type == "env":
+            self._load_env_dropdown()
             self.emit("save-env-signal", object)
 
     def show_toast(self, msg: str):

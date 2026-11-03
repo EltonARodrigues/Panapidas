@@ -85,7 +85,7 @@ class Request(RequestItem):
 
     @GObject.Property(type=str)
     def id(self) -> str:
-        return self._id[0]
+        return self._id
 
     @GObject.Property()
     def scripts(self) -> dict:

@@ -22,6 +22,7 @@ class ImportDialog(Adw.Dialog):
     def _on_collection_opened(self, dialog: Gtk.FileDialog, result: Gio.AsyncResult):
         file = dialog.open_finish(result)
         import_path = file.get_path()
+        self.close()
         self.emit("import-file-selected", import_path)
 
     @Gtk.Template.Callback()

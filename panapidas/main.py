@@ -196,6 +196,7 @@ class PanapidasApplication(Adw.Application):
         request_group = import_collection.postman_collection(path)
         self.request_group_store.append(request_group)
         self.dataManagement.save_requests(self.request_group_store)
+        self.win.show_toast("Collection imported successfully!")
 
     def on_import_action(self, widget, _):
         import_dialog = ImportDialog()

@@ -170,8 +170,8 @@ class DataManagement:
                 continue
 
             finded = DataManagement.find_item_index(item.children, id)
-            if finded:
-                return finded, None, None
+            if finded[0]:
+                return finded
         return False, None, None
 
     @staticmethod

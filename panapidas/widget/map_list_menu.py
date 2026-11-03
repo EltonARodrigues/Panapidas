@@ -190,8 +190,7 @@ class MapListMenu(GObject.Object):
     def get_map_entry(self):
         entrys = [row for row in self.list_model if len(row.key) > 0]
 
-        for deleted_item in self.deleted_items:
-            entrys.append(deleted_item)
+        entrys.extend(self.deleted_items)
         return entrys
 
     def get_formated_dict(self):

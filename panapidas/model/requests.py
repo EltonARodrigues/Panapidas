@@ -73,12 +73,6 @@ class Request(RequestItem):
     @staticmethod
     def map_builder(entry_list):
 
-        if isinstance(entry_list, dict):
-            return [
-                MapEntry(id=str(uuid.uuid4()), key=form[0], value=form[1])
-                for index, form in enumerate(entry_list.items())
-            ]
-
         return [
             MapEntry(
                 id=str(uuid.uuid4()),
@@ -143,16 +137,16 @@ class Request(RequestItem):
 
         return {
             "type": body["type"],
-            "form_data": {
-                row.key: row.value
+            "form_data": [
+                {"key": row.key, "value": row.value, "active": row.active}
                 for row in body["form_data"]
                 if not (filter_active and not row.active)
-            },
-            "urlencoded": {
-                row.key: row.value
+            ],
+            "urlencoded": [
+                {"key": row.key, "value": row.value, "active": row.active}
                 for row in body["urlencoded"]
                 if not (filter_active and not row.active)
-            },
+            ],
             "raw": body["raw"],
         }
 

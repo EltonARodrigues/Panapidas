@@ -117,39 +117,37 @@ class PanapidasApplication(Adw.Application):
         if item_type == "RequestGroup":
             return item.children
 
-    def on_save(self, _: PanapidasWindow, env_object: EnvObject, type: str, send_notification):
-        if type == "request":
-            self.dataManagement.save_requests(self.request_group_store)
-            send_notification("Request saved!")
+    def on_save_requests(self, _: PanapidasWindow, send_notification):
+        self.dataManagement.save_requests(self.request_group_store)
+        send_notification("Request saved!")
+
+    def on_save_envs(self, _: PanapidasWindow, env_object: EnvObject, send_notification):
+        self.dataManagement.save_envs(self.envs_store)
+
+        if env_object.status == "DELETED":
+            self.secret_manager.delete_secret({"group_id": env_object.id})
+            send_notification("Environment Group deleted!")
             return
 
-        if type == "env":
-            self.dataManagement.save_envs(self.envs_store)
-
-            if env_object.status == "DELETED":
-                self.secret_manager.delete_secret({"group_id": env_object.id})
-                send_notification("Environment Group deleted!")
-                return
-
-            for env in env_object.dict_envs:
-                if env["status"] == "DELETED":
-                    self.secret_manager.delete_secret(
-                        {
-                            "var_id": str(env["id"]),
-                            "group_id": env_object.id,
-                            "variable": env["key"],
-                        }
-                    )
-                
-                if env["status"] == "UPDATED":
-                    self.secret_manager.save(env["key"], env["value"], {
+        for env in env_object.dict_envs:
+            if env["status"] == "DELETED":
+                self.secret_manager.delete_secret(
+                    {
                         "var_id": str(env["id"]),
                         "group_id": env_object.id,
                         "variable": env["key"],
-                    })
+                    }
+                )
+            
+            if env["status"] == "UPDATED":
+                self.secret_manager.save(env["key"], env["value"], {
+                    "var_id": str(env["id"]),
+                    "group_id": env_object.id,
+                    "variable": env["key"],
+                })
 
-            env_object.clear_deleted_envs()
-            send_notification("Environment saved!")
+        env_object.clear_deleted_envs()
+        send_notification("Environment saved!")
 
     def do_activate(self):
         """Called when the application is activated.
@@ -165,7 +163,8 @@ class PanapidasApplication(Adw.Application):
                 group_list_model=self.group_list_model,
                 envs_store=self.envs_store,
             )
-            self.win.connect("save-signal", self.on_save, self.win.show_toast)
+            self.win.connect("save-env-signal", self.on_save_envs, self.win.show_toast)
+            self.win.connect("save-request-signal", self.on_save_requests, self.win.show_toast)
         self.win.present()
 
     def on_about_action(self, *args):

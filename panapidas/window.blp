@@ -37,6 +37,12 @@ template $PanapidasWindow: Adw.ApplicationWindow {
                   clicked => $on_save();
                 }
               }
+
+              Adw.StatusPage empty_status_page {
+                title: _("Panapidas");
+                description: _("Select or create a request to start using Panapidas.");
+                icon-name: "eltonarodrigues.org.codeberg.panapidas";
+              }
             }
           }
 

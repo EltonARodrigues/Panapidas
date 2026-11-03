@@ -1,11 +1,27 @@
+# import_collection.py
+#
+# Copyright 2026 Elton de Andrade Rodrigues
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, version 3.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <https://www.gnu.org/licenses/>.
+#
+# SPDX-License-Identifier: GPL-3.0-only
+
 import json
 import uuid
-from typing import Union
 
-from urllib.parse import parse_qsl, urlencode, urlunparse, urlparse
+from urllib.parse import parse_qsl, urlunparse, urlparse
 
-from panapidas.model.requests import Request, RequestGroup, RequestItem
-from panapidas.model.map_entry import MapEntry
+from panapidas.model.requests import RequestGroup, RequestItem
 
 
 class ImportCollection:

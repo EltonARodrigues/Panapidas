@@ -58,5 +58,14 @@ template $ScripInfoPage: Adw.PreferencesDialog {
         code-text: "pa.utils.hmacSha256(\"key\", \"message\")";
       }
     }
+
+    Adw.PreferencesGroup {
+      title: _("UUID");
+      description: _("Generate a new UUID v4:");
+
+      $CopyCode {
+        code-text: "pa.utils.uuid";
+      }
+    }
   }
 }

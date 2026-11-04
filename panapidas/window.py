@@ -45,6 +45,7 @@ class PanapidasWindow(Adw.ApplicationWindow):
     request_navigation = Gtk.Template.Child()
     save_request_button = Gtk.Template.Child()
     toast_overlay_status = Gtk.Template.Child()
+    empty_status_page = Gtk.Template.Child()
 
     def __init__(self, group_list_model: Gtk.TreeListModel, envs_store: Gio.ListStore, **kwargs):
         super().__init__(**kwargs)
@@ -146,5 +147,5 @@ class PanapidasWindow(Adw.ApplicationWindow):
                 self.request_pages.pop(request_id, None)
 
                 if request_id == self.request_id_selected:
-                    self.content_request.set_content(None)
+                    self.content_request.set_content(self.empty_status_page)
                     self.request_layout.set_title("Request")

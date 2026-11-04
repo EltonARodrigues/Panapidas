@@ -34,17 +34,32 @@ class EnvConfigPage(Adw.NavigationPage):
 
     env_list = Gtk.Template.Child()
     save_env_button = Gtk.Template.Child()
+    empty_status_page = Gtk.Template.Child()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
         self.params = None
         self.env_object = None
+        self.search_text = None
+
+        self.env_list.set_filter_func(self._filtrar_linha)
+
 
     def set_env(self, env_object: EnvObject):
         self.env_object = env_object
         self.params = MapListMenu(self.env_list, env_object.envs, None, False, False)
         self.params.connect("map-changed", self._on_map_change)
+
+    def _filtrar_linha(self, row: Gtk.ListBoxRow):
+        env_name: str =  row.get_child().get_first_child().get_text()
+
+        if self.search_text is None or self.search_text == "":
+            return True
+
+        if self.search_text in env_name:
+            return True
+        return False
 
     def _on_map_change(self, widget: MapListMenu):
         self.env_object.envs = widget.get_map_entry()
@@ -57,3 +72,26 @@ class EnvConfigPage(Adw.NavigationPage):
             self.env_object.id, self.env_object.name, self.env_object.envs
         )
         self.emit("env-saved", self.env_object)
+
+    def _on_empty_filter_result(self):
+        child = self.env_list.get_first_child()
+        while child is not None:
+            if isinstance(child, Gtk.ListBoxRow) and child.get_child_visible():
+                return False
+            child = child.get_next_sibling()
+
+        return True
+
+    @Gtk.Template.Callback()
+    def on_search_change(self, search_entry: Gtk.SearchEntry):
+        self.search_text = search_entry.get_text()
+        self.params = None
+        self.env_list.invalidate_filter()
+
+        if self._on_empty_filter_result():
+            self.empty_status_page.set_visible(True)
+            self.empty_status_page.set_description("No matches found for your search.")
+            self.env_list.set_visible(False)
+        else:
+            self.empty_status_page.set_visible(False)
+            self.env_list.set_visible(True)

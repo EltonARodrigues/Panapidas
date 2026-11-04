@@ -21,5 +21,6 @@
   </gresource>
   <gresource prefix="/eltonarodrigues/org/codeberg/panapidas/icons">
     <file alias="dot-large-symbolic.svg" preprocess="xml-stripblanks">icons/actions/dot-large-symbolic.svg</file>
+    <file alias="loupe-minus-symbolic.svg" preprocess="xml-stripblanks">icons/actions/loupe-minus-symbolic.svg</file>
   </gresource>
 </gresources>

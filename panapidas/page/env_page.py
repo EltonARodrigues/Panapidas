@@ -35,6 +35,7 @@ class EnvPage(Adw.NavigationPage):
     }
 
     list_envs = Gtk.Template.Child()
+    empty_status_page = Gtk.Template.Child()
 
     def __init__(self, env_store: Gio.ListStore = None, **kwargs):
         super().__init__(**kwargs)
@@ -49,13 +50,23 @@ class EnvPage(Adw.NavigationPage):
 
         self.string_filter = Gtk.StringFilter(expression=Gtk.PropertyExpression.new(EnvObject, None, "name"))
         self.string_filter.set_ignore_case(True)
-        filter_model = Gtk.FilterListModel(model=self.env_store, filter=self.string_filter)
-        self.selection = Gtk.SingleSelection.new(filter_model)
+        self.filter_model = Gtk.FilterListModel(model=self.env_store, filter=self.string_filter)
+        self.selection = Gtk.SingleSelection.new(self.filter_model)
         self.list_envs.set_model(self.selection)
 
     @Gtk.Template.Callback()
     def on_search_change(self, widget: Gtk.SearchEntry):
         self.string_filter.set_search(widget.get_text())
+
+        if self.filter_model.get_n_items() == 0:
+            self.empty_status_page.set_visible(True)
+            self.empty_status_page.set_description("No matches found for your search.")
+            self.list_envs.set_visible(False)
+        else:
+            self.empty_status_page.set_visible(False)
+            self.list_envs.set_visible(True)
+
+
 
     @Gtk.Template.Callback()
     def on_create_env(self, widget: Gtk.Button):

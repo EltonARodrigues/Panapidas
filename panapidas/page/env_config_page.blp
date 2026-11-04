@@ -7,6 +7,13 @@ template $EnvConfigPage: Adw.NavigationPage {
   child: Adw.ToolbarView content_request {
     [top]
     Adw.HeaderBar {
+
+      SearchEntry search_entry {
+        placeholder-text: _("Search Variable");
+
+        search-changed => $on_search_change();
+      }
+
       [end]
       Button save_env_button {
         sensitive: false;
@@ -25,14 +32,27 @@ template $EnvConfigPage: Adw.NavigationPage {
         hscrollbar-policy: never;
         propagate-natural-height: true;
         has-frame: false;
-        valign: start;
+        valign: fill;
 
-        ListBox env_list {
-          styles [
-            "custom_list"
-          ]
+        Box {
+          orientation: vertical;
 
-          selection-mode: none;
+          ListBox env_list {
+            vexpand: true;
+
+            styles [
+              "custom_list"
+            ]
+
+            selection-mode: none;
+          }
+
+          Adw.StatusPage empty_status_page {
+            title: _("Variables not found");
+            icon-name: "loupe-minus-symbolic";
+            visible: false;
+            vexpand: true;
+          }
         }
       }
     };

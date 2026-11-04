@@ -44,20 +44,32 @@ template $EnvPage: Adw.NavigationPage {
       margin-start: 10;
       margin-end: 10;
 
-      child: ListView list_envs {
-        // hexpand: true;
-        // valign: start;
-        enable-rubberband: false;
+      child: Box {
+        orientation: vertical;
 
-        styles [
-          "list-view-env",
-        ]
+        ListView list_envs {
+          // hexpand: true;
+          // valign: start;
+          enable-rubberband: false;
+          vexpand: true;
 
-        factory: SignalListItemFactory {
-          setup => $on_setup_factory();
-          bind => $on_bind_factory();
-          unbind => $on_unbind_factory();
-        };
+          styles [
+            "list-view-env",
+          ]
+
+          factory: SignalListItemFactory {
+            setup => $on_setup_factory();
+            bind => $on_bind_factory();
+            unbind => $on_unbind_factory();
+          };
+        }
+
+        Adw.StatusPage empty_status_page {
+          title: _("Group not found");
+          icon-name: "loupe-minus-symbolic";
+          visible: false;
+          vexpand: true;
+        }
       };
     }; 
   };

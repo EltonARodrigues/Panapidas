@@ -17,6 +17,8 @@
 # SPDX-License-Identifier: GPL-3.0-only
 
 import json
+import hmac
+import hashlib
 
 import dukpy
 
@@ -101,6 +103,13 @@ class ScriptRequest:
     def setup_interpreter(self, response: Response = None):
         interpreter = dukpy.JSInterpreter()
 
+        interpreter.export_function(
+            "__pa_create_hmacSha256",
+            lambda key, message: hmac.new(
+                key.encode(), message.encode(), hashlib.sha256
+            ).hexdigest(),
+        )
+
         interpreter.export_function("__pa_var_get",   self.pa.get)
         interpreter.export_function("__pa_var_set",   self.pa.set)
 
@@ -159,6 +168,9 @@ class ScriptRequest:
                     body: has_response ? call_python('__pa_resp_get_body') : null,
                     headers: has_response ? call_python('__pa_resp_get_headers') : null,
                     header_get: function(key) { return has_response ? call_python('__pa_resp_header_get', key) : null; },
+                },
+                utils: {
+                    hmacSha256: function(key, message) { return call_python('__pa_create_hmacSha256', key, message); }
                 }
             }
         """)

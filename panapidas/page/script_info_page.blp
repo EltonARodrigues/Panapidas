@@ -49,5 +49,14 @@ template $ScripInfoPage: Adw.PreferencesDialog {
         code-text: "pa.response.url\npa.response.body\npa.response.headers\npa.response.header_get(\"key\")";
       }
     }
+
+    Adw.PreferencesGroup {
+      title: _("Cryptography");
+      description: _("Create HMAC-SHA256 hash:");
+
+      $CopyCode {
+        code-text: "pa.utils.hmacSha256(\"key\", \"message\")";
+      }
+    }
   }
 }

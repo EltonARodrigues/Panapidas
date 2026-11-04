@@ -151,7 +151,9 @@ class RequestPage(Adw.Bin):
         self.response_body.set_language(response.response_type)
         self.response_body.set_response(response.body)
 
-        self.script_runner.run(self.scripts["pos_script"], response=response)
+        status_script = self.script_runner.run(self.scripts["pos_script"], response=response)
+        if not status_script:
+            self.get_root().emit("notify-signal", "Error running post-script!")
 
         self.response_header_list.remove_all()
         for header in response.headers.items():
@@ -220,7 +222,10 @@ class RequestPage(Adw.Bin):
 
     @Gtk.Template.Callback()
     def on_send(self, _):
-        self.script_runner.run(self.scripts["pre_script"])
+        status_script = self.script_runner.run(self.scripts["pre_script"])
+        if not status_script:
+            self.get_root().emit("notify-signal", "Error running pre-script!")
+
         if self.is_destroyed or self.active_request:
             return None
 

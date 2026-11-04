@@ -182,6 +182,11 @@ class ScriptRequest:
 
         return interpreter
 
-    def run(self, code, response: Response = None):
-        interpreter = self.setup_interpreter(response)
-        interpreter.evaljs(code)
+    def run(self, code, response: Response = None) -> bool:
+        try:
+            interpreter = self.setup_interpreter(response)
+            interpreter.evaljs(code)
+        except dukpy.JSRuntimeError as e:
+            print("Error running script:", e)
+            return False
+        return True

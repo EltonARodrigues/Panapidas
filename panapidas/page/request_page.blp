@@ -94,7 +94,7 @@ template $RequestPage: Adw.Bin {
               vexpand: true;
 
               ScrolledWindow {
-                max-content-height: 200;
+                max-content-height: 390;
                 hscrollbar-policy: never;
                 propagate-natural-height: true;
                 has-frame: false;
@@ -121,6 +121,7 @@ template $RequestPage: Adw.Bin {
               vexpand: true;
 
               ScrolledWindow {
+                max-content-height: 390;
                 hscrollbar-policy: never;
                 propagate-natural-height: true;
                 has-frame: false;
@@ -177,7 +178,7 @@ template $RequestPage: Adw.Bin {
               }
 
               ScrolledWindow body_type_request {
-                max-content-height: 400;
+                max-content-height: 350;
                 hscrollbar-policy: never;
                 propagate-natural-height: true;
                 has-frame: false;
@@ -230,8 +231,8 @@ template $RequestPage: Adw.Bin {
               }
 
               ScrolledWindow script_content {
-                min-content-height: 200;
-                max-content-height: 400;
+                // min-content-height: 200;
+                max-content-height: 350;
                 hscrollbar-policy: never;
                 propagate-natural-height: true;
                 has-frame: false;
@@ -326,6 +327,7 @@ template $RequestPage: Adw.Bin {
 
           $BodySourceView response_body {
             editable: false;
+            vexpand: true;
           }
 
           Gtk.ListBox response_header_list {

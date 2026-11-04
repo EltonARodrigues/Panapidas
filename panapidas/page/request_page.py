@@ -288,7 +288,7 @@ class RequestPage(Adw.Bin):
         self, widget: Adw.ToggleGroup, active_name: GObject.ParamSpec
     ):
         toggle_name = widget.get_property(active_name.get_name())
-
+        print("on_request_info_change")
         if (toggle_name == "body"):
             self.response_header_list.set_visible(False)
             self.response_body.set_visible(True)

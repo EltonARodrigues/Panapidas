@@ -16,42 +16,58 @@
 #
 # SPDX-License-Identifier: GPL-3.0-only
 
+from importlib.resources import path
 import uuid
 import json
 import hmac
 import hashlib
+
+import urllib
 
 import dukpy
 
 from panapidas.model.env_object import ActiveEnvs
 from panapidas.model.requests import Request
 from panapidas.request.http_request import Response
+from panapidas.utils.entry_env_formatter import apply_env
 
 class PanapidasRequestObject():
-    def __init__(self, request):
+    def __init__(self, request, envs: list[dict[str, str]] = None):
+        self.envs = envs or []
         self.request = request
 
     def get_method(self) -> str:
         return self.request.method
 
     def get_url(self) -> str:
-        return self.request.url
+        return apply_env(self.envs,  self.request.url)
+
+    def get_url_path(self) -> str:
+        return urllib.parse.urlparse(self.get_url()).path
 
     def set_url(self, url: str) -> None:
         self.request.url = url
 
-    def get_body(self) -> dict:
-        return Request.convert_body_to_dict(self.request.body)
+    def get_body(self) -> str:
+        body = Request.convert_body_to_dict(self.request.body)
+
+        if body["type"] is None:
+            return "{}"
+
+        data = body[body["type"]]
+        if body["type"] == "form_data" or body["type"] == "urlencoded":
+            return json.dumps({item["key"]: item["value"] for item in data})
+
+        return data
 
     def get_params(self) -> str:
-        # Retorna JSON (string) para o JS poder reconstruir
-        return json.dumps([ param.to_dict() for param in self.request.params])
+        return json.dumps({param.key: param.value for param in self.request.params})
 
     def get_headers(self) -> str:
-        return json.dumps([ header.to_dict() for header in self.request.headers])
+        return json.dumps({ header.key: header.value  for header in self.request.headers})
 
-    def set_body(self, b: str) -> None:
-        self.request.body = b
+    # def set_body(self, b: str) -> None:
+    #     self.request.body = b
 
     def header_get(self, key: str) -> str:
         return self.request.headers.get(key, "")
@@ -98,8 +114,7 @@ class ScriptRequest:
     def __init__(self, request, variables: ActiveEnvs):
         self.request = request
         self.pa = PanapidaObject(variables)
-        self.request = PanapidasRequestObject(request)
-
+        self.request = PanapidasRequestObject(request, envs=variables.dict_envs if variables else None)
 
     def setup_interpreter(self, response: Response = None):
         interpreter = dukpy.JSInterpreter()
@@ -128,13 +143,14 @@ class ScriptRequest:
             interpreter.export_function("__pa_resp_get_headers", self.response.get_headers)
             interpreter.export_function("__pa_resp_header_get",  self.response.header_get)
 
-        interpreter.export_function("__pa_req_get_url",   self.request.get_url)
-        interpreter.export_function("__pa_req_set_url",   self.request.set_url)
+        interpreter.export_function("__pa_req_get_url",     self.request.get_url)
+        interpreter.export_function("__pa_req_set_url",     self.request.set_url)
+        interpreter.export_function("__pa_req_get_path",    self.request.get_url_path)
         interpreter.export_function("__pa_req_get_method",  self.request.get_method)
         interpreter.export_function("__pa_req_get_url",     self.request.get_url)
         interpreter.export_function("__pa_req_set_url",     self.request.set_url)
         interpreter.export_function("__pa_req_get_body",    self.request.get_body)
-        interpreter.export_function("__pa_req_set_body",    self.request.set_body)
+        # interpreter.export_function("__pa_req_set_body",    self.request.set_body)
         interpreter.export_function("__pa_req_get_headers", self.request.get_headers)
         interpreter.export_function("__pa_req_get_params",  self.request.get_params)
         interpreter.export_function("__pa_req_header_get",  self.request.header_get)
@@ -159,11 +175,11 @@ class ScriptRequest:
                     set:   function(name, value) { call_python('__pa_var_set', name, value); },
                 },
                 request: {
+                    url_path: call_python('__pa_req_get_path'),
                     url: call_python('__pa_req_get_url'),
                     set_url: function(value) { call_python('__pa_req_set_url', value); },
                     method: call_python('__pa_req_get_method'),
                     body: call_python('__pa_req_get_body'),
-                    set_body: function(value) { call_python('__pa_req_set_body', value); },
                     headers: call_python('__pa_req_get_headers'),
                     params: call_python('__pa_req_get_params'),
                 },

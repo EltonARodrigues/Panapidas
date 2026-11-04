@@ -53,7 +53,7 @@ def apply_env(envs: dict, text: str):
         )
 
         if var_value:
-            formated_text = formated_text.replace(match.group(), var_value or var_name)
+            formated_text = formated_text.replace(match.group(), str(var_value) or var_name)
 
     return formated_text
 
@@ -74,7 +74,7 @@ def apply_env_style(envs: dict, text: str, entry: Gtk.Entry):
         )
 
         if var_value:
-            formated_text = formated_text.replace(match.group(), var_value or var_name)
+            formated_text = formated_text.replace(match.group(), str(var_value) or var_name)
         attr_list.insert(_create_pango_attr(match))
 
     entry.set_attributes(attr_list)

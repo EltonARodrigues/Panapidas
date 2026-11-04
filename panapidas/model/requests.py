@@ -150,7 +150,7 @@ class Request(RequestItem):
                     for row in body["urlencoded"]
                     if not (filter_active and not row.active)
                 },
-                "raw": apply_env(envs, body["raw"]),
+                "raw": apply_env(envs, body["raw"]) if body.get("raw") is not None else None,
             }
 
         return {

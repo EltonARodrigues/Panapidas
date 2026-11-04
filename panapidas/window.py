@@ -127,7 +127,7 @@ class PanapidasWindow(Adw.ApplicationWindow):
         if request.id not in self.request_pages:
             self.request_pages[request.id] = RequestPage(request)
 
-        self.request_navigation.set_title(request.name)
+        self.request_layout.set_title(request.name)
         self.save_request_button.set_visible(True)
         self.request_selected = self.request_pages[request.id]
         self.request_id_selected = request.id
@@ -147,3 +147,4 @@ class PanapidasWindow(Adw.ApplicationWindow):
 
                 if request_id == self.request_id_selected:
                     self.content_request.set_content(None)
+                    self.request_layout.set_title("Request")

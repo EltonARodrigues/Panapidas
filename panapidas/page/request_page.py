@@ -96,6 +96,7 @@ class RequestPage(Adw.Bin):
         self.script_runner = ScriptRequest(self.request, self.activeEnv)
 
         self._load_request(self.request)
+        self.script_buffer.set_text(self.scripts["pre_script"])
 
     def _load_request(self, request: Request):
         method = request.method or "GET"
@@ -121,7 +122,6 @@ class RequestPage(Adw.Bin):
         self.request_body_source.set_size_request(-1, 500)
 
         self.scripts = request.scripts
-        self.script_buffer.set_text(self.scripts["pre_script"])
 
     @staticmethod
     def set_response_bar_label(label: Gtk.Label, text: str):

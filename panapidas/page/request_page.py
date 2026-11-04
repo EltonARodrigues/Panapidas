@@ -125,13 +125,25 @@ class RequestPage(Adw.Bin):
 
     @staticmethod
     def set_response_bar_label(label: Gtk.Label, text: str):
-        label_template_text = label.get_text()
+        label_template_text = text
         label.set_visible(True)
         label.set_text(label_template_text.format(text))
 
     def on_change_env(self, env_group: EnvObject):
         self.envs = env_group.dict_envs if hasattr(env_group, 'dict_envs') else []
         self._load_request(self.request)
+
+    def _reset_response(self):
+        self.response_body.set_response("")
+        self.default_status_bar_label.set_visible(True)
+
+        self.request_info_toggle_group.set_visible(False)
+        self.send_request_button.set_visible(False)
+        self.cancel_request_button.set_visible(False)
+
+        self.response_status_label.set_visible(False)
+        self.response_time_label.set_visible(False)
+        self.response_size_label.set_visible(False)
 
     def _render_response(self, response: Response) -> bool:
         self.default_status_bar_label.set_visible(False)
@@ -222,6 +234,7 @@ class RequestPage(Adw.Bin):
 
     @Gtk.Template.Callback()
     def on_send(self, _):
+        self._reset_response()
         status_script = self.script_runner.run(self.scripts["pre_script"])
         if not status_script:
             self.get_root().emit("notify-signal", "Error running pre-script!")

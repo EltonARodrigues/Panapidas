@@ -196,14 +196,14 @@ def request(
         if data_as_json:
             request_headers.append("Content-Type", "application/json")
 
-        if body["type"] == "raw":
+        if body["type"] == "raw" and body["raw"] is not None:
             message.set_request_body_from_bytes(
                 request_headers.get_content_type()[0], GLib.Bytes.new(body["raw"].encode("utf-8"))
             )
 
         time_start_count = time.perf_counter()
         body_bytes = session.send_and_read(message, None)
-        time_ttfb = (time.perf_counter() - time_start_count) * 1000
+        time_ttfb = (time.perf_counter() - time_start_count)
 
         status = message.get_status()  # na 3.0 é get_status(), não status_code
         reason = message.get_reason_phrase()

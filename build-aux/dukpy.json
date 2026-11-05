@@ -7,8 +7,8 @@
     "sources": [
         {
             "type": "file",
-            "url": "https://files.pythonhosted.org/packages/f2/12/5d7dedd7e03c50259997700f7983e65a6d3092187365a57e98306de0e660/dukpy-0.6.0-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
-            "sha256": "c0f382ca51e482c8dff46d60911cd878943a48eae9e554fe386ecafb17ad3e8d"
+            "url": "https://files.pythonhosted.org/packages/a2/f3/82d1fbc3a4b82ff2e6d788723b6e4b19a6c0c92e031629df46a0f3848321/dukpy-0.6.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+            "sha256": "01e7538b99014f3a5ffdd8549d49520c749ba2cad1097473df52ec714419f7b0"
         }
     ]
 }

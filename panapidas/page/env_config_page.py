@@ -16,6 +16,7 @@
 #
 # SPDX-License-Identifier: GPL-3.0-only
 
+from gettext import gettext as _
 from gi.repository import Adw, Gtk, GObject
 
 from panapidas.widget.map_list_menu import MapListMenu
@@ -90,7 +91,7 @@ class EnvConfigPage(Adw.NavigationPage):
 
         if self._on_empty_filter_result():
             self.empty_status_page.set_visible(True)
-            self.empty_status_page.set_description("No matches found for your search.")
+            self.empty_status_page.set_description(_("No matches found for your search."))
             self.env_list.set_visible(False)
         else:
             self.empty_status_page.set_visible(False)

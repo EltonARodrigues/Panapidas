@@ -16,6 +16,7 @@
 #
 # SPDX-License-Identifier: GPL-3.0-only
 
+from gettext import gettext as _
 from gi.repository import Gtk, Gio, GObject, GLib
 
 from panapidas.model.requests import RequestItem
@@ -39,13 +40,13 @@ class ItemPopover(Gtk.PopoverMenu):
 
         if item_type == "RequestGroup":
             new_item_section = Gio.Menu()
-            new_folder = Gio.MenuItem.new("New Folder")
+            new_folder = Gio.MenuItem.new(_("New Group"))
             new_folder.set_action_and_target_value(
                 "app.create-sub-folder", GLib.Variant.new_string(item.id)
             )
             new_item_section.append_item(new_folder)
 
-            new_request = Gio.MenuItem.new("New Request")
+            new_request = Gio.MenuItem.new(_("New Request"))
             new_request.set_action_and_target_value(
                 "app.create-sub-request", GLib.Variant.new_string(item.id)
             )

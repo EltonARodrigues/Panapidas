@@ -18,6 +18,7 @@
 
 import json
 
+from gettext import gettext as _
 from gi.repository import Adw, Gtk, Gio
 
 from panapidas.widget.add_certificate import AddCertificateDialog
@@ -48,7 +49,6 @@ class PreferencesPage(Adw.PreferencesDialog):
         self._load_client_cert_list()
 
     def _save_client_cert_list(self, certificate: dict):
-        print(f"Saving certificate: {certificate}")
         self.client_cert_list.append(certificate)
         self.settings.set_string("client-certificates", json.dumps(self.client_cert_list))
 
@@ -71,7 +71,7 @@ class PreferencesPage(Adw.PreferencesDialog):
         row = Adw.ExpanderRow(title=certificate["url"])
 
         delete_cert_button = Gtk.Button(
-            label="Delete Certificate",
+            tooltip_text=_("Delete Certificate"),
             icon_name="user-trash-symbolic",
             halign="center",
             valign="center",
@@ -98,7 +98,7 @@ class PreferencesPage(Adw.PreferencesDialog):
 
 
     @Gtk.Template.Callback()
-    def on_add_certificate(self, button):
+    def on_add_certificate(self, button: Gtk.Button):
         certificate_dialog = AddCertificateDialog()
         certificate_dialog.connect("response", self._save_cert)
         certificate_dialog.present(self)

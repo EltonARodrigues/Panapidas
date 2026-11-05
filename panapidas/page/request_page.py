@@ -19,6 +19,7 @@
 
 import threading
 
+from gettext import gettext as _
 from gi.repository import Adw, GLib, Gtk, GObject, Pango
 
 from panapidas.page.script_info_page import ScripInfoPage
@@ -166,7 +167,7 @@ class RequestPage(Adw.Bin):
 
         status_script = self.script_runner.run(self.scripts["pos_script"], response=response)
         if not status_script:
-            self.get_root().emit("notify-signal", "Error running post-script!")
+            self.get_root().emit("notify-signal", _("Error running post-script!"))
 
         self.response_header_list.remove_all()
         for header in response.headers.items():
@@ -238,7 +239,7 @@ class RequestPage(Adw.Bin):
         self._reset_response()
         status_script = self.script_runner.run(self.scripts["pre_script"])
         if not status_script:
-            self.get_root().emit("notify-signal", "Error running pre-script!")
+            self.get_root().emit("notify-signal", _("Error running pre-script!"))
 
         if self.is_destroyed or self.active_request:
             return None

@@ -1,0 +1,456 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-05 13:55-0300\n"
+"PO-Revision-Date: 2026-11-05 19:28-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.10\n"
+
+#: panapidas/main.py:117
+msgid "Request saved!"
+msgstr "Requisição Salva!"
+
+#: panapidas/main.py:124
+msgid "Environment Group deleted!"
+msgstr "Grupo de variáveis deletado!"
+
+#: panapidas/main.py:155
+msgid "Environment Group Saved!"
+msgstr "Grupo de variáveis Salvo!"
+
+#: panapidas/main.py:183
+msgid "translator-credits"
+msgstr "crédito dos tradutores"
+
+#: panapidas/main.py:196
+msgid "Collection imported successfully!"
+msgstr "Coleção importada com sucesso!"
+
+#: panapidas/main.py:219
+msgid "Are you sure you want to delete this item?"
+msgstr "Tem certeza de que deseja excluir este item?"
+
+#: panapidas/main.py:241 panapidas/main.py:253
+#: panapidas/widget/item_popover.py:43 panapidas/widget/request_sidebar.blp:39
+msgid "New Group"
+msgstr "Novo Grupo"
+
+#: panapidas/main.py:249 panapidas/main.py:257
+#: panapidas/widget/item_popover.py:49 panapidas/widget/request_sidebar.blp:44
+msgid "New Request"
+msgstr "Nova Requisição"
+
+#: panapidas/page/env_config_page.blp:5
+msgid "env_config"
+msgstr "env_config"
+
+#: panapidas/page/env_config_page.blp:12
+msgid "Search Variable"
+msgstr "Pesquisar Variável"
+
+#. sensitive: false;
+#: panapidas/page/env_config_page.blp:20
+#: panapidas/widget/add_certificate.blp:10 panapidas/window.blp:31
+msgid "Save"
+msgstr "Salvar"
+
+#: panapidas/page/env_config_page.blp:59
+msgid "Variables not found"
+msgstr "Variável não encontrada"
+
+#: panapidas/page/env_config_page.py:94 panapidas/page/env_page.py:64
+msgid "No matches found for your search."
+msgstr "Nenhum resultado encontrado para sua busca."
+
+#: panapidas/page/env_page.blp:5
+msgid "Envs"
+msgstr "Envs"
+
+#: panapidas/page/env_page.blp:22
+msgid "Search Env"
+msgstr "Pesquisar Variável"
+
+#: panapidas/page/env_page.blp:28
+msgid "Add New Group"
+msgstr "Adicionar Novo Grupo"
+
+#: panapidas/page/env_page.blp:68
+msgid "Group not found"
+msgstr "Grupo não encontrado"
+
+#: panapidas/page/env_page.py:44
+msgid "Are you sure you want to delete this environment group?"
+msgstr "Tem certeza de que deseja excluir este grupo de ambientes?"
+
+#: panapidas/page/env_page.py:74
+msgid "New Environment Group"
+msgstr "Novo Grupo de Variáveis"
+
+#: panapidas/page/env_page.py:99
+msgid "Open Group"
+msgstr "Abrir Grupo"
+
+#: panapidas/page/env_page.py:103
+msgid "Remove Group"
+msgstr "Remover Grupo"
+
+#: panapidas/page/env_page.py:107 panapidas/page/env_page.py:206
+msgid "Rename Group"
+msgstr "Renomear Grupo"
+
+#: panapidas/page/env_page.py:119
+msgid "Unnamed Environment Group"
+msgstr "Grupo de Variáveis Sem Nome"
+
+#: panapidas/page/env_page.py:207
+msgid "Change the name of the environment group."
+msgstr "Altere o nome do grupo de ambiente."
+
+#: panapidas/page/preferences/preferences_page.blp:7
+msgid "Preferences"
+msgstr "Preferências"
+
+#: panapidas/page/preferences/preferences_page.blp:10
+#: panapidas/shortcuts-dialog.blp:6
+msgid "General"
+msgstr "Geral"
+
+#: panapidas/page/preferences/preferences_page.blp:14
+msgid "Request Settings"
+msgstr "Configurações de Requisição"
+
+#: panapidas/page/preferences/preferences_page.blp:15
+msgid "Configure the request settings for the application"
+msgstr "Configure as definições de solicitação para o aplicativo"
+
+#: panapidas/page/preferences/preferences_page.blp:18
+msgid "Request Timeout"
+msgstr "Timeout da Requisição"
+
+#: panapidas/page/preferences/preferences_page.blp:19
+msgid "Increment or decrement request timeout"
+msgstr "Aumentar ou diminuir o tempo limite da solicitação"
+
+#: panapidas/page/preferences/preferences_page.blp:33
+msgid "Certificate"
+msgstr "Certificado"
+
+#: panapidas/page/preferences/preferences_page.blp:37
+msgid "Certificate Settings"
+msgstr "Configurações do Certificado"
+
+#: panapidas/page/preferences/preferences_page.blp:38
+msgid "Add or remove certificates for secure connections"
+msgstr "Adicione ou remova certificados para conexões seguras"
+
+#: panapidas/page/preferences/preferences_page.blp:42
+msgid "Add Certificate"
+msgstr "Adicionar Certificado"
+
+#: panapidas/page/preferences/preferences_page.py:74
+msgid "Delete Certificate"
+msgstr "Deletar Certificado"
+
+#: panapidas/page/request_page.blp:45
+msgid "Enter URL"
+msgstr "Insira a URL"
+
+#: panapidas/page/request_page.blp:51
+msgid "Send"
+msgstr "Enviar"
+
+#: panapidas/page/request_page.blp:65 panapidas/widget/add_certificate.blp:9
+#: panapidas/widget/change_value_dialog.blp:9
+#: panapidas/widget/delete_dialog.blp:10
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: panapidas/page/request_page.blp:98
+msgid "Params"
+msgstr "Parâmetros"
+
+#: panapidas/page/request_page.blp:125 panapidas/page/request_page.blp:294
+msgid "Headers"
+msgstr "Cabeçalho"
+
+#: panapidas/page/request_page.blp:152 panapidas/page/request_page.blp:289
+msgid "Body"
+msgstr "Body"
+
+#: panapidas/page/request_page.blp:169
+msgid "None"
+msgstr "Nenhum"
+
+#: panapidas/page/request_page.blp:174
+msgid "form-data"
+msgstr "form-data"
+
+#: panapidas/page/request_page.blp:179
+msgid "x-www-form-urlencoded"
+msgstr "x-www-form-urlencoded"
+
+#: panapidas/page/request_page.blp:184
+msgid "raw"
+msgstr "raw"
+
+#: panapidas/page/request_page.blp:200
+msgid "Script"
+msgstr "Script"
+
+#: panapidas/page/request_page.blp:219
+msgid "Pre-request"
+msgstr "Pré-requisição"
+
+#: panapidas/page/request_page.blp:224
+msgid "Post-request"
+msgstr "Pos-requisição"
+
+#: panapidas/page/request_page.blp:230
+msgid "View Scripts"
+msgstr "Ver Scripts"
+
+#: panapidas/page/request_page.blp:273 panapidas/page/script_info_page.blp:45
+msgid "Response"
+msgstr "Resposta"
+
+#: panapidas/page/request_page.blp:309
+msgid "Status: "
+msgstr "Status: "
+
+#: panapidas/page/request_page.blp:314
+msgid "Time: "
+msgstr "Tempo: "
+
+#: panapidas/page/request_page.blp:319
+msgid "Size: "
+msgstr "Tamanho: "
+
+#: panapidas/page/request_page.py:170
+msgid "Error running post-script!"
+msgstr "Erro ao executar o script posterior!"
+
+#: panapidas/page/request_page.py:242
+msgid "Error running pre-script!"
+msgstr "Erro ao executar o pré-script!"
+
+#: panapidas/page/script_info_page.blp:5
+msgid "Script Snippers"
+msgstr "Script Snippers"
+
+#: panapidas/page/script_info_page.blp:9 panapidas/page/script_info_page.blp:18
+#: panapidas/shortcuts-dialog.blp:33
+msgid "Variables"
+msgstr "Variáveis"
+
+#: panapidas/page/script_info_page.blp:10
+msgid "How to get a variable in scripts:"
+msgstr "Como obter uma variável em scripts:"
+
+#: panapidas/page/script_info_page.blp:19
+msgid "Set variable value:"
+msgstr "Definir valor da variável:"
+
+#: panapidas/page/script_info_page.blp:27
+#: panapidas/page/script_info_page.blp:36 panapidas/shortcuts-dialog.blp:20
+#: panapidas/window.blp:13
+msgid "Request"
+msgstr "Requisição"
+
+#: panapidas/page/script_info_page.blp:28
+msgid "Get request infos:"
+msgstr "Obter informações da solicitação:"
+
+#: panapidas/page/script_info_page.blp:37
+msgid "Set request infos:"
+msgstr "Definir informações da solicitação:"
+
+#: panapidas/page/script_info_page.blp:46
+msgid "Get response infos:"
+msgstr "Obter informações da resposta:"
+
+#: panapidas/page/script_info_page.blp:54
+msgid "Cryptography"
+msgstr "Criptografia"
+
+#: panapidas/page/script_info_page.blp:55
+msgid "Create HMAC-SHA256 hash:"
+msgstr "Crie um hash HMAC-SHA256:"
+
+#: panapidas/page/script_info_page.blp:63
+msgid "UUID"
+msgstr "UUID"
+
+#: panapidas/page/script_info_page.blp:64
+msgid "Generate a new UUID v4:"
+msgstr "Gerar um novo UUID v4:"
+
+#: panapidas/shortcuts-dialog.blp:9
+msgid "Show Shortcuts"
+msgstr "Exibir Atalhos"
+
+#: panapidas/shortcuts-dialog.blp:14
+msgid "Quit"
+msgstr "Sair"
+
+#: panapidas/shortcuts-dialog.blp:23
+msgid "Make Request"
+msgstr "Fazer Requisição"
+
+#: panapidas/shortcuts-dialog.blp:28
+msgid "Save Request"
+msgstr "Salvar Requisição"
+
+#: panapidas/shortcuts-dialog.blp:36
+msgid "Save Env"
+msgstr "Salvar Variable"
+
+#: panapidas/utils/entry_env_formatter.py:121
+msgid ""
+"No active environment selected. Please select an environment to edit its "
+"variables."
+msgstr ""
+"Nenhum ambiente selecionado. Selecione um ambiente para editar suas "
+"variáveis."
+
+#: panapidas/utils/entry_env_formatter.py:127
+msgid "Variable: {key}"
+msgstr "Variáveis: {key}"
+
+#: panapidas/widget/add_certificate.blp:17
+msgid "Certificate Url"
+msgstr "URL do Certificado"
+
+#: panapidas/widget/add_certificate.blp:23
+msgid "CRT file"
+msgstr "Arquivo CRT"
+
+#: panapidas/widget/add_certificate.blp:24
+msgid "/exemple/cert.crt"
+msgstr ""
+
+#: panapidas/widget/add_certificate.blp:29
+#: panapidas/widget/add_certificate.blp:45
+#: panapidas/widget/add_certificate.blp:60
+msgid "Add File"
+msgstr "Adicionar Arquivo"
+
+#: panapidas/widget/add_certificate.blp:39
+msgid "KEY file"
+msgstr "Arquivo KEY"
+
+#: panapidas/widget/add_certificate.blp:54
+msgid "PFX file"
+msgstr "Arquivo PFX"
+
+#: panapidas/widget/change_value_dialog.blp:10
+msgid "Apply"
+msgstr "Aplicar"
+
+#: panapidas/widget/change_value_dialog.blp:14
+msgid "Enter new value"
+msgstr "Insira o novo valor"
+
+#: panapidas/widget/copy_code.blp:24
+msgid "Copy to clipboard"
+msgstr "Copiar para a área de transferência"
+
+#: panapidas/widget/delete_dialog.blp:5
+msgid "Confirmation"
+msgstr "Confirmar"
+
+#: panapidas/widget/delete_dialog.blp:11
+msgid "Delete"
+msgstr "Deletar"
+
+#: panapidas/widget/import_dialog.blp:5
+msgid "Import Collections"
+msgstr "Importar Coleções"
+
+#: panapidas/widget/import_dialog.blp:20
+msgid "Import..."
+msgstr "Importar..."
+
+#: panapidas/widget/import_dialog.blp:30
+msgid "Import Postman Collection(2.1)"
+msgstr "Importar Postman Collection (2.1)"
+
+#: panapidas/widget/map_list_menu.py:130 panapidas/widget/map_list_menu.py:179
+msgid "Key"
+msgstr "Chave"
+
+#: panapidas/widget/map_list_menu.py:137 panapidas/widget/map_list_menu.py:183
+msgid "Value"
+msgstr "Valor"
+
+#: panapidas/widget/map_list_menu.py:146
+msgid "Remove Item"
+msgstr "Remover Item"
+
+#: panapidas/widget/rename_popover.blp:17
+msgid "Filename"
+msgstr "Nome do arquivo"
+
+#: panapidas/widget/rename_popover.blp:32
+msgid "Rename"
+msgstr "Renomear"
+
+#: panapidas/widget/request_sidebar.blp:5
+msgid "Collections"
+msgstr "Coleções"
+
+#: panapidas/widget/request_sidebar.blp:15
+msgid "Main Menu"
+msgstr "Menu Principal"
+
+#: panapidas/widget/request_sidebar.blp:51
+msgid "_Envs"
+msgstr "_Variáveis"
+
+#: panapidas/widget/request_sidebar.blp:55
+msgid "_Import"
+msgstr "_Importar"
+
+#: panapidas/widget/request_sidebar.blp:62
+msgid "_Preferences"
+msgstr "_Preferências"
+
+#: panapidas/widget/request_sidebar.blp:67
+msgid "_Keyboard Shortcuts"
+msgstr "_Atalhos do Teclado"
+
+#: panapidas/widget/request_sidebar.blp:72
+msgid "_About Panapidas"
+msgstr "_Sobre Panapidas"
+
+#: panapidas/window.blp:5 panapidas/window.blp:50
+msgid "Panapidas"
+msgstr "Panapidas"
+
+#: panapidas/window.blp:18
+msgid "Requests"
+msgstr "Requisições"
+
+#: panapidas/window.blp:51
+msgid "Select or create a request."
+msgstr "Selecione ou crie uma requisição."
+
+#~ msgid "Show script info"
+#~ msgstr "Exibir scripts"
+
+#~ msgid "Add New Env"
+#~ msgstr "Adicionar nova Variável"
+
+#~ msgid "Rename Environment"
+#~ msgstr "Renomear Environment"

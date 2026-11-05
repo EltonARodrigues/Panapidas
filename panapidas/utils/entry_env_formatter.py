@@ -16,6 +16,7 @@
 #
 # SPDX-License-Identifier: GPL-3.0-only
 
+from gettext import gettext as _
 from email.mime import text
 from os import name
 import re
@@ -117,13 +118,15 @@ def _on_change_env_key(key: str, root_widget: Gtk.Widget = None):
 
     print(f"Active env: {active_env.id}, key: {key}")
     if active_env.id is None:
-        root_widget.emit("notify-signal", "No active environment selected. Please select an environment to edit its variables.")
+        root_widget.emit("notify-signal", _("No active environment selected. Please select an environment to edit its variables."))
         return
 
 
     env_value_dialog = ChangeValueDialog(
         value=active_env.get_env(key),
-        heading=f"Environment Variable: {key}",
+        heading= _("Variable: {key}").format(
+            key=key, 
+        ),
         body=None,
     )
     env_value_dialog.connect("response", _on_env_value_changed, active_env, key)

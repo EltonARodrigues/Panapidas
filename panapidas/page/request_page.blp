@@ -226,8 +226,8 @@ template $RequestPage: Adw.Bin {
                 }
 
                 Button {
-                  label: "teste";
                   icon-name: "info-outline-symbolic";
+                  tooltip-text: _("View Scripts");
 
                   styles [
                     "flat",
@@ -306,17 +306,17 @@ template $RequestPage: Adw.Bin {
 
           Label response_status_label {
             visible: false;
-            label: _("Status: {}");
+            label: _("Status: ");
           }
 
           Label response_time_label {
             visible: false;
-            label: _("Time: {}");
+            label: _("Time: ");
           }
 
           Label response_size_label {
             visible: false;
-            label: _("Size: {}");
+            label: _("Size: ");
           }
         }
       }

@@ -1,8 +1,39 @@
-# List of source files containing translatable strings.
+# List of source fië é les containing translatable strings.
 # Please keep this file sorted alphabetically.
 data/eltonarodrigues.org.codeberg.panapidas.desktop.in
 data/eltonarodrigues.org.codeberg.panapidas.metainfo.xml.in
 data/eltonarodrigues.org.codeberg.panapidas.gschema.xml
-src/main.py
-src/window.py
-src/window.ui
+panapidas/main.py
+panapidas/page/env_config_page.blp
+panapidas/page/env_config_page.py
+panapidas/page/env_page.blp
+panapidas/page/env_page.py
+panapidas/page/preferences/preferences_page.blp
+panapidas/page/preferences/preferences_page.py
+panapidas/page/request_page.blp
+panapidas/page/request_page.py
+panapidas/page/script_info_page.blp
+panapidas/page/script_info_page.py
+panapidas/shortcuts-dialog.blp
+panapidas/utils/entry_env_formatter.py
+panapidas/widget/add_certificate.blp
+panapidas/widget/add_certificate.py
+panapidas/widget/body_source_view.blp
+panapidas/widget/body_source_view.py
+panapidas/widget/change_value_dialog.blp
+panapidas/widget/change_value_dialog.py
+panapidas/widget/copy_code.blp
+panapidas/widget/copy_code.py
+panapidas/widget/delete_dialog.blp
+panapidas/widget/delete_dialog.py
+panapidas/widget/import_dialog.blp
+panapidas/widget/import_dialog.py
+panapidas/widget/item_popover.blp
+panapidas/widget/item_popover.py
+panapidas/widget/map_list_menu.py
+panapidas/widget/rename_popover.blp
+panapidas/widget/rename_popover.py
+panapidas/widget/request_sidebar.blp
+panapidas/widget/request_sidebar.py
+panapidas/window.blp
+panapidas/window.py

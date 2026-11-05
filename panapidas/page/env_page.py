@@ -16,6 +16,7 @@
 #
 # SPDX-License-Identifier: GPL-3.0-only
 
+from gettext import gettext as _
 from gi.repository import Adw, Gtk, GObject, Gio
 
 from panapidas.model.env_object import EnvObject
@@ -40,7 +41,7 @@ class EnvPage(Adw.NavigationPage):
     def __init__(self, env_store: Gio.ListStore = None, **kwargs):
         super().__init__(**kwargs)
 
-        self.delete_env_dialog = DeleteDialog("Are you sure you want to delete this environment group?")
+        self.delete_env_dialog = DeleteDialog(_("Are you sure you want to delete this environment group?"))
 
         self.delete_env_dialog.signal_id = self.delete_env_dialog.connect(
             "response", self._on_deleted_row
@@ -60,7 +61,7 @@ class EnvPage(Adw.NavigationPage):
 
         if self.filter_model.get_n_items() == 0:
             self.empty_status_page.set_visible(True)
-            self.empty_status_page.set_description("No matches found for your search.")
+            self.empty_status_page.set_description(_("No matches found for your search."))
             self.list_envs.set_visible(False)
         else:
             self.empty_status_page.set_visible(False)
@@ -70,7 +71,7 @@ class EnvPage(Adw.NavigationPage):
 
     @Gtk.Template.Callback()
     def on_create_env(self, widget: Gtk.Button):
-        new_env_group = EnvObject(name="New Environment", envs_map=[], status="NEW")
+        new_env_group = EnvObject(name=_("New Environment Group"), envs_map=[], status="NEW")
         self.env_store.append(new_env_group)
         self.emit("env-saved", new_env_group)
 
@@ -95,15 +96,15 @@ class EnvPage(Adw.NavigationPage):
         row = list_item.get_child()
         env_object = list_item.get_item()
 
-        toggle_env = Gtk.ToggleButton(icon_name="go-next-symbolic", valign="center")
+        toggle_env = Gtk.ToggleButton(icon_name="go-next-symbolic", tooltip_text= _("Open Group"), valign="center")
         toggle_env.set_css_classes(["flat"])
         toggle_env.connect("clicked", self._on_select_env, None, None, None, env_object)
 
-        delete_button = Gtk.Button(icon_name="user-trash-symbolic", valign="center")
+        delete_button = Gtk.Button(icon_name="user-trash-symbolic", tooltip_text= _("Remove Group"), valign="center")
         delete_button.set_css_classes(["flat"])
         delete_button.connect("clicked", self._on_delete_row, env_object)
 
-        rename_button = Gtk.Button(icon_name="adw-entry-edit-symbolic", valign="center")
+        rename_button = Gtk.Button(icon_name="adw-entry-edit-symbolic", tooltip_text= _("Rename Group"), valign="center")
         rename_button.set_css_classes(["flat"])
 
         control_box = Gtk.Box(
@@ -115,7 +116,7 @@ class EnvPage(Adw.NavigationPage):
         row.set_end_widget(control_box)
 
         label = row.get_first_child()
-        label.set_text(env_object.name or "Unnamed Environment")
+        label.set_text(env_object.name or _("Unnamed Environment Group"))
 
         gesture = Gtk.GestureClick()
         gesture.set_button(MOUSE_CLICK)
@@ -202,8 +203,8 @@ class EnvPage(Adw.NavigationPage):
     def _on_rename_env(self, widget: Gtk.Button, env_object: EnvObject):
         dialog = ChangeValueDialog(
             value=env_object.name,
-            heading="Rename Environment",
-            body="Change the name of the environment group.",
+            heading=_("Rename Group"),
+            body=_("Change the name of the environment group."),
         )
         dialog.connect("response", self._on_rename_requested, env_object)
         dialog.present(self)

@@ -17,11 +17,7 @@
 # SPDX-License-Identifier: GPL-3.0-only
 
 import sys
-import os
-import time
-import uuid
 
-from collections import defaultdict
 from gettext import gettext as _
 
 import gi
@@ -116,16 +112,16 @@ class PanapidasApplication(Adw.Application):
         if item_type == "RequestGroup":
             return item.children
 
-    def on_save_requests(self, _: PanapidasWindow, send_notification):
+    def on_save_requests(self, _window: PanapidasWindow, send_notification):
         self.dataManagement.save_requests(self.request_group_store)
-        send_notification("Request saved!")
+        send_notification(_("Request saved!"))
 
-    def on_save_envs(self, _: PanapidasWindow, env_object: EnvObject, send_notification):
+    def on_save_envs(self, _window: PanapidasWindow, env_object: EnvObject, send_notification):
         self.dataManagement.save_envs(self.envs_store)
 
         if env_object.status == "DELETED":
             self.secret_manager.delete_secret({"group_id": env_object.id})
-            send_notification("Environment Group deleted!")
+            send_notification(_("Environment Group deleted!"))
 
             active_env = ActiveEnvs()
             if active_env.id == env_object.id:
@@ -156,7 +152,7 @@ class PanapidasApplication(Adw.Application):
         if finded:
             finded_store[position].envs = env_object.envs
 
-        send_notification("Environment saved!")
+        send_notification(_("Environment Group Saved!"))
 
     def do_activate(self):
         """Called when the application is activated.
@@ -197,7 +193,7 @@ class PanapidasApplication(Adw.Application):
         request_group = import_collection.postman_collection(path)
         self.request_group_store.append(request_group)
         self.dataManagement.save_requests(self.request_group_store)
-        self.win.show_toast("Collection imported successfully!")
+        self.win.show_toast(_("Collection imported successfully!"))
 
     def on_import_action(self, widget, _):
         import_dialog = ImportDialog()
@@ -220,7 +216,7 @@ class PanapidasApplication(Adw.Application):
     def on_delete(self, action: Gio.SimpleAction, target):
         parent_item_id = target.unpack()
 
-        delete_dialog = DeleteDialog("Are you sure you want to delete this item")
+        delete_dialog = DeleteDialog(_("Are you sure you want to delete this item?"))
         delete_dialog.connect(
             "response",
             self._apply_delete_request,
@@ -242,7 +238,7 @@ class PanapidasApplication(Adw.Application):
             DataManagement.add_item(
                 item_list=self.request_group_store,
                 id=parent_item_id,
-                new_item=RequestGroup(name="New Folder"),
+                new_item=RequestGroup(name=_("New Group")),
             )
 
         if action_name == "create-sub-request":
@@ -250,15 +246,15 @@ class PanapidasApplication(Adw.Application):
             DataManagement.add_item(
                 item_list=self.request_group_store,
                 id=parent_item_id,
-                new_item=Request(name="New Request"),
+                new_item=Request(name=_("New Request")),
             )
 
         if action_name == "create_folder":
-            new_group = RequestGroup(name="New Group")
+            new_group = RequestGroup(name=_("New Group"))
             self.request_group_store.append(new_group)
 
         if action_name == "create_request":
-            new_request = Request(name="New Request")
+            new_request = Request(name=_("New Request"))
             self.request_group_store.append(new_request)
 
         self.dataManagement.save_requests(self.request_group_store)

@@ -18,7 +18,8 @@
 
 import uuid
 
-from gi.repository import Adw, Gtk, GObject, Gio
+from gettext import gettext as _
+from gi.repository import Gtk, GObject, Gio
 
 from panapidas.model.map_entry import MapEntry
 from panapidas.utils.entry_env_formatter import (
@@ -126,14 +127,14 @@ class MapListMenu(GObject.Object):
         )
         linked_box.set_css_classes(["linked"])
 
-        key_entry = Gtk.Entry(hexpand=True, placeholder_text="Key", text=model.key)
+        key_entry = Gtk.Entry(hexpand=True, placeholder_text=_("Key"), text=model.key)
         if self.map_env_template:
             apply_env_style(self.envs, model.key, key_entry)
             entry_env_change_gesture(key_entry)
         key_entry.connect("changed", self._on_entry_changed, "key", model)
 
         value_entry = Gtk.Entry(
-            hexpand=True, placeholder_text="Value", text=model.value
+            hexpand=True, placeholder_text=_("Value"), text=model.value
         )
         if self.map_env_template:
             apply_env_style(self.envs, model.value, value_entry)
@@ -142,7 +143,7 @@ class MapListMenu(GObject.Object):
 
         close_button = Gtk.Button(
             icon_name="edit-delete-symbolic",
-            tooltip_text="Remover item",
+            tooltip_text=_("Remove Item"),
             halign="center",
             valign="center",
         )
@@ -175,11 +176,11 @@ class MapListMenu(GObject.Object):
         linked_box.set_css_classes(["linked"])
 
         key_entry = Gtk.Entry(
-            hexpand=True, placeholder_text="Key", text=name, editable=False
+            hexpand=True, placeholder_text=_("Key"), text=name, editable=False
         )
 
         value_entry = Gtk.Entry(
-            hexpand=True, placeholder_text="Value", text=value, editable=False
+            hexpand=True, placeholder_text=_("Value"), text=value, editable=False
         )
 
         linked_box.append(key_entry)

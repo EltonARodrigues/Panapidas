@@ -3,37 +3,37 @@ using Adw 1;
 
 Adw.ShortcutsDialog shortcuts_dialog {
   Adw.ShortcutsSection {
-    title: C_("shortcut window", "General");
+    title: _("General");
 
     Adw.ShortcutsItem {
-      title: C_("shortcut window", "Show Shortcuts");
+      title: _("Show Shortcuts");
       action-name: "app.shortcuts";
     }
 
     Adw.ShortcutsItem {
-      title: C_("shortcut window", "Quit");
+      title: _("Quit");
       action-name: "app.quit";
     }
   }
 
   Adw.ShortcutsSection {
-    title: C_("shortcut request", "Request");
+    title: _("Request");
 
     Adw.ShortcutsItem {
-      title: C_("shortcut window", "Make Request");
+      title: _("Make Request");
       accelerator: "<control>r";
     }
 
     Adw.ShortcutsItem {
-      title: C_("shortcut window", "Save Request");
+      title: _("Save Request");
       accelerator: "<control>s";
     }
   }
   Adw.ShortcutsSection {
-    title: C_("shortcut window", "Environments");
+    title: _("Variables");
 
     Adw.ShortcutsItem {
-      title: C_("shortcut window", "Save Env");
+      title: _("Save Env");
       accelerator: "<control>s";
     }
   }

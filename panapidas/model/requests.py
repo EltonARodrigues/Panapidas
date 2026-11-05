@@ -18,6 +18,7 @@
 
 import base64
 import uuid
+import re
 
 from gi.repository import Gio, GObject
 
@@ -150,7 +151,13 @@ class Request(RequestItem):
                     for row in body["urlencoded"]
                     if not (filter_active and not row.active)
                 },
-                "raw": apply_env(envs, body["raw"]) if body.get("raw") is not None else None,
+                "raw": (
+                    apply_env(
+                        envs, re.sub(r" //.*\n?", "", body["raw"], flags=re.MULTILINE)
+                    )
+                    if body.get("raw") is not None
+                    else None
+                ),
             }
 
         return {

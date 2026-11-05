@@ -30,7 +30,7 @@ class BodySourceView(GtkSource.View):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.set_language("json")
+        self.set_language("panapidas-request-json")
 
         self.scheme_manager = GtkSource.StyleSchemeManager.get_default()
         self.style_manager = Adw.StyleManager.get_default()

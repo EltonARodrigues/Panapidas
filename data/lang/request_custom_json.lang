@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language id="panapidas-request-json" name="Panapidas Request JSON" version="2.0" _section="Other">
+  <metadata>
+    <property name="mimetypes">application/json</property>
+    <property name="globs">*.json</property>
+    <property name="line-comment-start">//</property>
+  </metadata>
+
+  <styles>
+    <style id="variable" name="Template Variable" map-to="def:special-char" />
+    <style id="comment" name="Comment" map-to="def:comment" />
+    <style id="boolean" name="Boolean" map-to="def:boolean" />
+    <style id="null-value" name="Null Value" map-to="def:special-constant" />
+    <style id="keyname" name="Key" map-to="def:constant" />
+  </styles>
+
+  <definitions>
+    <context id="line-comment" style-ref="comment"
+      end-at-line-end="true"
+      class="comment"
+      class-disabled="no-spell-check">
+      <start>//</start>
+    </context>
+
+    <context id="variable" style-ref="variable" extend-parent="true">
+      <match>\{\{[A-Za-z_][A-Za-z0-9_]*\}\}</match>
+    </context>
+
+    <context id="panapidas-request-json-string" style-ref="def:string">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context ref="variable" />
+        <context ref="def:escape" />
+      </include>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>true</keyword>
+      <keyword>false</keyword>
+    </context>
+
+    <context id="null-value" style-ref="null-value">
+      <keyword>null</keyword>
+    </context>
+
+    <context id="panapidas-request-json-object">
+      <start>\{</start>
+      <end>\}</end>
+      <include>
+        <context ref="line-comment" />
+        <context ref="json:string" style-ref="keyname" />
+        <context>
+          <start>:</start>
+          <end>,|\s*(?=})</end>
+          <include>
+            <context ref="variable" />
+            <context sub-pattern="0" where="start" style-ref="keyname" />
+            <context ref="json:value" />
+          </include>
+        </context>
+        <context ref="json:catchall" />
+      </include>
+    </context>
+
+    <replace id="json:object" ref="panapidas-request-json-object" />
+    <replace id="json:string" ref="panapidas-request-json-string" />
+
+    <context id="panapidas-request-json" class="no-spell-check">
+      <include>
+        <context ref="line-comment" />
+        <context ref="json:object" />
+        <context ref="boolean" />
+        <context ref="null-value" />
+        <context ref="def:string" />
+        <context ref="def:decimal" />
+        <context ref="def:float" />
+      </include>
+    </context>
+  </definitions>
+</language>

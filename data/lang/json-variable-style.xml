@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<style-scheme id="panapidas-variable-style" name="Panapidas Variable Style" version="1.0" parent-scheme="classic">
+  <author>Elton de Andrade Rodrigues</author>
+  <description>Create variable style</description>
+
+  <style name="jsonc:template-var" foreground="#FF8C00" bold="true"/>
+</style-scheme>

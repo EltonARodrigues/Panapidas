@@ -7,6 +7,16 @@ desktop_file = i18n.merge_file(
   install_dir: get_option('datadir') / 'applications'
 )
 
+install_data(
+  'lang/request_custom_json.lang',
+  install_dir: get_option('datadir') / 'gtksourceview-5' / 'language-specs'
+)
+
+install_data(
+  'lang/json-variable-style.xml',
+  install_dir: get_option('datadir') / 'gtksourceview-5' / 'styles'
+)
+
 desktop_utils = find_program('desktop-file-validate', required: false)
 if desktop_utils.found()
   test('Validate desktop file', desktop_utils, args: [desktop_file])

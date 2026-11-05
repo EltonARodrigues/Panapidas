@@ -35,6 +35,14 @@ template $PanapidasWindow: Adw.ApplicationWindow {
                   ]
 
                   clicked => $on_save();
+
+                  ShortcutController {
+                    scope: global;
+                    Shortcut {
+                      trigger: "<control>s";
+                      action: "activate";
+                    }
+                  }
                 }
               }
 

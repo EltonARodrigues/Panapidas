@@ -51,6 +51,14 @@ template $RequestPage: Adw.Bin {
         label: _("Send");
 
         clicked => $on_send();
+
+        ShortcutController {
+          scope: global;
+          Shortcut {
+            trigger: "<control>r";
+            action: "activate";
+          }
+        }
       }
 
       Button cancel_request_button {

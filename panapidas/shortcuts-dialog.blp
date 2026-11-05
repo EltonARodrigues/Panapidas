@@ -15,4 +15,26 @@ Adw.ShortcutsDialog shortcuts_dialog {
       action-name: "app.quit";
     }
   }
+
+  Adw.ShortcutsSection {
+    title: C_("shortcut request", "Request");
+
+    Adw.ShortcutsItem {
+      title: C_("shortcut window", "Make Request");
+      accelerator: "<control>r";
+    }
+
+    Adw.ShortcutsItem {
+      title: C_("shortcut window", "Save Request");
+      accelerator: "<control>s";
+    }
+  }
+  Adw.ShortcutsSection {
+    title: C_("shortcut window", "Environments");
+
+    Adw.ShortcutsItem {
+      title: C_("shortcut window", "Save Env");
+      accelerator: "<control>s";
+    }
+  }
 }

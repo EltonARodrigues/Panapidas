@@ -152,13 +152,14 @@ class RequestPage(Adw.Bin):
         self.send_request_button.set_visible(True)
         self.cancel_request_button.set_visible(False)
 
-        RequestPage.set_response_bar_label(self.response_status_label, response.status)
-        RequestPage.set_response_bar_label(
-            self.response_time_label, response.time_seconds
-        )
-        RequestPage.set_response_bar_label(
-            self.response_size_label, response.response_size
-        )
+        if response.status is not None:
+            RequestPage.set_response_bar_label(self.response_status_label, response.status)
+            RequestPage.set_response_bar_label(
+                self.response_time_label, response.time_seconds
+            )
+            RequestPage.set_response_bar_label(
+                self.response_size_label, response.response_size
+            )
 
         self.response_body.set_language(response.response_type)
         self.response_body.set_response(response.body)
@@ -306,7 +307,6 @@ class RequestPage(Adw.Bin):
         self, widget: Adw.ToggleGroup, active_name: GObject.ParamSpec
     ):
         toggle_name = widget.get_property(active_name.get_name())
-        print("on_request_info_change")
         if (toggle_name == "body"):
             self.response_header_list.set_visible(False)
             self.response_body.set_visible(True)

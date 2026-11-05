@@ -48,6 +48,7 @@ class EnvConfigPage(Adw.NavigationPage):
 
 
     def set_env(self, env_object: EnvObject):
+        self.set_title(env_object.name)
         self.env_object = env_object
         self.params = MapListMenu(self.env_list, env_object.envs, None, False, False)
         self.params.connect("map-changed", self._on_map_change)

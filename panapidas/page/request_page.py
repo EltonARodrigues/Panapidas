@@ -37,7 +37,7 @@ from panapidas.request.script_request import ScriptRequest
 
 
 @Gtk.Template(
-    resource_path="/eltonarodrigues/org/codeberg/panapidas/page/request_page.ui"
+    resource_path="/dev/eltonarodrigues/panapidas/page/request_page.ui"
 )
 class RequestPage(Adw.Bin):
     __gtype_name__ = "RequestPage"

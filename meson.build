@@ -4,7 +4,7 @@ project('panapidas',
   default_options: [ 'warning_level=2', 'werror=false', ],
 )
 
-application_id = 'eltonarodrigues.org.codeberg.panapidas'
+application_id = 'dev.eltonarodrigues.panapidas'
 project_name = 'Panapidas'
 
 if get_option('profile') == 'development'

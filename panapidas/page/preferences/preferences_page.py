@@ -22,10 +22,11 @@ from gettext import gettext as _
 from gi.repository import Adw, Gtk, Gio
 
 from panapidas.widget.add_certificate import AddCertificateDialog
+from panapidas import const
 
 
 @Gtk.Template(
-    resource_path="/eltonarodrigues/org/codeberg/panapidas/page/preferences/preferences_page.ui"
+    resource_path="/dev/eltonarodrigues/panapidas/page/preferences/preferences_page.ui"
 )
 class PreferencesPage(Adw.PreferencesDialog):
     __gtype_name__ = "PreferencesPage"
@@ -36,7 +37,7 @@ class PreferencesPage(Adw.PreferencesDialog):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.settings = Gio.Settings.new("eltonarodrigues.org.codeberg.panapidas")
+        self.settings = Gio.Settings.new(const.APP_ID)
 
         self.settings.bind(
             "general-request-timeout",

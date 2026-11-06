@@ -1,5 +1,5 @@
 {
-    "id": "eltonarodrigues.org.codeberg.panapidas",
+    "id": "dev.eltonarodrigues.panapidas",
     "runtime": "org.gnome.Sdk",
     "runtime-version": "51",
     "sdk": "org.gnome.Sdk",

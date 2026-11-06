@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="panapidas">
-	<schema id="eltonarodrigues.org.codeberg.panapidas" path="/eltonarodrigues/org/codeberg/panapidas/">
+	<schema id="dev.eltonarodrigues.panapidas" path="/dev/eltonarodrigues/panapidas/">
 		<key name="general-request-timeout" type="i">
 			<default>13</default>
 			<summary>Request timeout in seconds</summary>

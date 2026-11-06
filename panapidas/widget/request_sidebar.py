@@ -27,7 +27,7 @@ LEFT_MOUSE_BUTTON = 1
 
 
 @Gtk.Template(
-    resource_path="/eltonarodrigues/org/codeberg/panapidas/widget/request_sidebar.ui"
+    resource_path="/dev/eltonarodrigues/panapidas/widget/request_sidebar.ui"
 )
 class RequestSidebar(Adw.NavigationPage):
     __gtype_name__ = "RequestSidebar"

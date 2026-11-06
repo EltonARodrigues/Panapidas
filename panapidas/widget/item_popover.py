@@ -23,7 +23,7 @@ from panapidas.model.requests import RequestItem
 
 
 @Gtk.Template(
-    resource_path="/eltonarodrigues/org/codeberg/panapidas/widget/item_popover.ui"
+    resource_path="/dev/eltonarodrigues/panapidas/widget/item_popover.ui"
 )
 class ItemPopover(Gtk.PopoverMenu):
     __gtype_name__ = "ItemPopover"

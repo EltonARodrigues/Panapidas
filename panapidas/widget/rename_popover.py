@@ -22,7 +22,7 @@ from panapidas.model.requests import RequestItem
 
 
 @Gtk.Template(
-    resource_path="/eltonarodrigues/org/codeberg/panapidas/widget/rename_popover.ui"
+    resource_path="/dev/eltonarodrigues/panapidas/widget/rename_popover.ui"
 )
 class RenamePopover(Gtk.Popover):
     __gtype_name__ = "RenamePopover"

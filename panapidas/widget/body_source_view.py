@@ -20,7 +20,7 @@ from gi.repository import Gtk, GtkSource, GObject, Adw
 
 
 @Gtk.Template(
-    resource_path="/eltonarodrigues/org/codeberg/panapidas/widget/body_source_view.ui"
+    resource_path="/dev/eltonarodrigues/panapidas/widget/body_source_view.ui"
 )
 class BodySourceView(GtkSource.View):
     __gtype_name__ = "BodySourceView"

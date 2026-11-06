@@ -27,7 +27,7 @@ from panapidas.utils.logger import logger
 MOUSE_CLICK = 1
 
 
-@Gtk.Template(resource_path="/eltonarodrigues/org/codeberg/panapidas/page/env_page.ui")
+@Gtk.Template(resource_path="/dev/eltonarodrigues/panapidas/page/env_page.ui")
 class EnvPage(Adw.NavigationPage):
     __gtype_name__ = "EnvPage"
 

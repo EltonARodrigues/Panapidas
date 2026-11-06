@@ -1,6 +1,6 @@
 desktop_file = i18n.merge_file(
-        input: 'eltonarodrigues.org.codeberg.panapidas.desktop.in',
-       output: 'eltonarodrigues.org.codeberg.panapidas.desktop',
+        input: 'dev.eltonarodrigues.panapidas.desktop.in',
+       output: 'dev.eltonarodrigues.panapidas.desktop',
          type: 'desktop',
        po_dir: '../po',
       install: true,
@@ -11,6 +11,19 @@ install_data(
   'lang/request_custom_json.lang',
   install_dir: get_option('datadir') / 'gtksourceview-5' / 'language-specs'
 )
+
+# Validate MetaInfo file
+metainfo_file = 'dev.eltonarodrigues.panapidas.metainfo.xml'
+ascli_exe = find_program('appstreamcli', required: false)
+if ascli_exe.found()
+  test('validate metainfo file',
+        ascli_exe,
+        args: ['validate',
+               '--no-net',
+               '--pedantic',
+               metainfo_file]
+  )
+endif
 
 install_data(
   'lang/json-variable-style.xml',
@@ -23,8 +36,8 @@ if desktop_utils.found()
 endif
 
 appstream_file = i18n.merge_file(
-        input: 'eltonarodrigues.org.codeberg.panapidas.metainfo.xml.in',
-       output: 'eltonarodrigues.org.codeberg.panapidas.metainfo.xml',
+        input: 'dev.eltonarodrigues.panapidas.metainfo.xml.in',
+       output: 'dev.eltonarodrigues.panapidas.metainfo.xml',
        po_dir: '../po',
       install: true,
   install_dir: get_option('datadir') / 'metainfo'
@@ -34,7 +47,7 @@ appstreamcli = find_program('appstreamcli', required: false, disabler: true)
 test('Validate appstream file', appstreamcli,
      args: ['validate', '--no-net', '--explain', appstream_file])
 
-install_data('eltonarodrigues.org.codeberg.panapidas.gschema.xml',
+install_data('dev.eltonarodrigues.panapidas.gschema.xml',
   install_dir: get_option('datadir') / 'glib-2.0' / 'schemas'
 )
 
@@ -47,8 +60,8 @@ test('Validate schema file',
 service_conf = configuration_data()
 service_conf.set('bindir', get_option('prefix') / get_option('bindir'))
 configure_file(
-  input: 'eltonarodrigues.org.codeberg.panapidas.service.in',
-  output: 'eltonarodrigues.org.codeberg.panapidas.service',
+  input: 'dev.eltonarodrigues.panapidas.service.in',
+  output: 'dev.eltonarodrigues.panapidas.service',
   configuration: service_conf,
   install_dir: get_option('datadir') / 'dbus-1' / 'services'
 )

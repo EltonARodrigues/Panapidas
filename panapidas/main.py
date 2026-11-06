@@ -47,7 +47,7 @@ class PanapidasApplication(Adw.Application):
         super().__init__(
             application_id=const.APP_ID,
             flags=Gio.ApplicationFlags.DEFAULT_FLAGS,
-            resource_base_path="/eltonarodrigues/org/codeberg/panapidas",
+            resource_base_path="/dev/eltonarodrigues/panapidas",
         )
 
         GtkSource.init()
@@ -173,7 +173,7 @@ class PanapidasApplication(Adw.Application):
         """Callback for the app.about action."""
         about = Adw.AboutDialog(
             application_name=const.NAME,
-            application_icon="eltonarodrigues.org.codeberg.panapidas",
+            application_icon="dev.eltonarodrigues.panapidas",
             developer_name="Elton de Andrade Rodrigues",
             version=const.VERSION,
             # Translators: Replace "translator-credits" with your name/username, and optionally an email or URL.
@@ -272,23 +272,8 @@ class PanapidasApplication(Adw.Application):
             self.set_accels_for_action(f"app.{name}", shortcuts)
 
 
-# FIX - remover load_css
-def load_css():
-    css_provider = Gtk.CssProvider()
-    try:
-        css_provider.load_from_resource(
-            const.APP_ID + "style.css"
-        )
-        display = Gdk.Display.get_default()
-        Gtk.StyleContext.add_provider_for_display(
-            display, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-        )
-    except Exception as e:
-        logger.error(f"load_css error: {e}")
-
 
 def main(VERSION):
     """The application's entry point."""
-    load_css()
     app = PanapidasApplication()
     return app.run(sys.argv)

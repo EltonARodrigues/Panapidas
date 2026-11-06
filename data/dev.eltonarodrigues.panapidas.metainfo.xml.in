@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>dev.eltonarodrigues.panapidas</id>
+  
+  <name>Panapidas</name>
+  <summary>HTTP client API</summary>
+  
+  <metadata_license>CC-BY-4.0</metadata_license>
+  <project_license>GPL-3.0-only</project_license>
+  
+  <description>
+    <p>
+      A HTTP Client for testing APIs written with GTK/LibAdwaita
+    </p>
+  </description>
+  
+  <launchable type="desktop-id">dev.eltonarodrigues.panapidas.desktop</launchable>
+</component>

@@ -1,3 +1,3 @@
 [D-BUS Service]
-Name=eltonarodrigues.org.codeberg.panapidas
+Name=dev.eltonarodrigues.panapidas
 Exec=@bindir@/panapidas --gapplication-service

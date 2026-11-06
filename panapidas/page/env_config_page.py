@@ -24,7 +24,7 @@ from panapidas.model.env_object import ActiveEnvs, EnvObject
 
 
 @Gtk.Template(
-    resource_path="/eltonarodrigues/org/codeberg/panapidas/page/env_config_page.ui"
+    resource_path="/dev/eltonarodrigues/panapidas/page/env_config_page.ui"
 )
 class EnvConfigPage(Adw.NavigationPage):
     __gtype_name__ = "EnvConfigPage"

@@ -20,7 +20,7 @@ from gi.repository import Gtk, Gio, Adw
 
 
 @Gtk.Template(
-    resource_path="/eltonarodrigues/org/codeberg/panapidas/widget/add_certificate.ui"
+    resource_path="/dev/eltonarodrigues/panapidas/widget/add_certificate.ui"
 )
 class AddCertificateDialog(Adw.AlertDialog):
     __gtype_name__ = "AddCertificateDialog"

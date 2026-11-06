@@ -1,4 +1,4 @@
-application_id = 'eltonarodrigues.org.codeberg.panapidas'
+application_id = 'dev.eltonarodrigues.panapidas'
 
 scalable_dir = 'hicolor' / 'scalable' / 'apps'
 install_data(

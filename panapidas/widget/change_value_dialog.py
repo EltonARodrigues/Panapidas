@@ -20,7 +20,7 @@ from gi.repository import Adw, Gtk
 
 
 @Gtk.Template(
-    resource_path="/eltonarodrigues/org/codeberg/panapidas/widget/change_value_dialog.ui"
+    resource_path="/dev/eltonarodrigues/panapidas/widget/change_value_dialog.ui"
 )
 class ChangeValueDialog(Adw.AlertDialog):
     __gtype_name__ = "ChangeValueDialog"

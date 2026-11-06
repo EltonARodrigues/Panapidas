@@ -26,7 +26,7 @@ from panapidas.page.env_config_page import EnvConfigPage
 from panapidas.model.requests import Request
 
 
-@Gtk.Template(resource_path="/eltonarodrigues/org/codeberg/panapidas/window.ui")
+@Gtk.Template(resource_path="/dev/eltonarodrigues/panapidas/window.ui")
 class PanapidasWindow(Adw.ApplicationWindow):
     __gtype_name__ = "PanapidasWindow"
 

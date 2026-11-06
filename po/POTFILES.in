@@ -1,8 +1,8 @@
 # List of source fië é les containing translatable strings.
 # Please keep this file sorted alphabetically.
-data/eltonarodrigues.org.codeberg.panapidas.desktop.in
-data/eltonarodrigues.org.codeberg.panapidas.metainfo.xml.in
-data/eltonarodrigues.org.codeberg.panapidas.gschema.xml
+data/dev.eltonarodrigues.panapidas.desktop.in
+data/dev.eltonarodrigues.panapidas.metainfo.xml.in
+data/dev.eltonarodrigues.panapidas.gschema.xml
 panapidas/main.py
 panapidas/page/env_config_page.blp
 panapidas/page/env_config_page.py

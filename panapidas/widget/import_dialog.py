@@ -20,7 +20,7 @@ from gi.repository import Adw, GObject, Gio, Gtk
 
 
 @Gtk.Template(
-    resource_path="/eltonarodrigues/org/codeberg/panapidas/widget/import_dialog.ui"
+    resource_path="/dev/eltonarodrigues/panapidas/widget/import_dialog.ui"
 )
 class ImportDialog(Adw.Dialog):
     __gtype_name__ = "ImportDialog"

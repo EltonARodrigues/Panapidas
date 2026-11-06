@@ -20,7 +20,7 @@ from gi.repository import GObject, Gdk, Gtk
 
 
 @Gtk.Template(
-    resource_path="/eltonarodrigues/org/codeberg/panapidas/widget/copy_code.ui"
+    resource_path="/dev/eltonarodrigues/panapidas/widget/copy_code.ui"
 )
 class CopyCode(Gtk.Box):
     __gtype_name__ = "CopyCode"

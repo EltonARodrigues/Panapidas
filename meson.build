@@ -4,6 +4,22 @@ project('panapidas',
   default_options: [ 'warning_level=2', 'werror=false', ],
 )
 
+application_id = 'eltonarodrigues.org.codeberg.panapidas'
+project_name = 'Panapidas'
+
+if get_option('profile') == 'development'
+  profile = 'Devel'
+  application_id = '@0@.Devel'.format(application_id)
+  version = ''.join(
+    [
+      run_command('git', 'describe', '--long', '--tags', check: false).stdout().strip(),
+    ],
+  )
+else
+  profile = ''
+  version = meson.project_version()
+endif
+
 i18n = import('i18n')
 python = import('python')
 gnome = import('gnome')

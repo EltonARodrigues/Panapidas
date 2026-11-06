@@ -30,6 +30,7 @@ from panapidas.model.env_object import ActiveEnvs
 from panapidas.model.requests import Request
 from panapidas.request.http_request import Response
 from panapidas.utils.entry_env_formatter import apply_env
+from panapidas.utils.logger import logger
 
 class PanapidasRequestObject():
     def __init__(self, request, envs: list[dict[str, str]] = None):
@@ -206,6 +207,6 @@ class ScriptRequest:
             interpreter = self.setup_interpreter(response)
             interpreter.evaljs(code)
         except dukpy.JSRuntimeError as e:
-            print("Error running script:", e)
+            logger.error("Error running script:", e)
             return False
         return True

@@ -25,6 +25,7 @@ import signal
 import locale
 import gettext
 
+PROFILE = "@PROFILE@"
 VERSION = '@VERSION@'
 pkgdatadir = '@pkgdatadir@'
 localedir = '@localedir@'

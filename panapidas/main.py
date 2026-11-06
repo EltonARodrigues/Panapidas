@@ -37,19 +37,15 @@ from panapidas.model.requests import Request, RequestGroup, RequestItem
 from panapidas.model.env_object import ActiveEnvs, EnvObject
 from panapidas.data_management import DataManagement
 from panapidas.window import PanapidasWindow
-
-
-APPLICATION_NAME = "Panapidas"
-APPLICATION_DATA_FILENAME = "requests.json"
-APPLICATION_ID = "eltonarodrigues.org.codeberg.panapidas"
-
+from panapidas.utils.logger import logger
+from panapidas import const
 
 class PanapidasApplication(Adw.Application):
     """The main application singleton class."""
 
     def __init__(self):
         super().__init__(
-            application_id=APPLICATION_ID,
+            application_id=const.APP_ID,
             flags=Gio.ApplicationFlags.DEFAULT_FLAGS,
             resource_base_path="/eltonarodrigues/org/codeberg/panapidas",
         )
@@ -60,7 +56,7 @@ class PanapidasApplication(Adw.Application):
 
         self.env_groups = self.dataManagement.load_envs()
 
-        self.secret_manager = SecretManager(APPLICATION_ID)
+        self.secret_manager = SecretManager()
 
         self.envs_store = Gio.ListStore.new(EnvObject)
         self.secret_manager.load_envs(
@@ -160,6 +156,7 @@ class PanapidasApplication(Adw.Application):
         We raise the application's main window, creating it if
         necessary.
         """
+        logger.info("teste 123")
 
         win = self.props.active_window
         if not win:
@@ -175,10 +172,10 @@ class PanapidasApplication(Adw.Application):
     def on_about_action(self, *args):
         """Callback for the app.about action."""
         about = Adw.AboutDialog(
-            application_name=APPLICATION_NAME,
+            application_name=const.NAME,
             application_icon="eltonarodrigues.org.codeberg.panapidas",
             developer_name="Elton de Andrade Rodrigues",
-            version="0.1.0",
+            version=const.VERSION,
             # Translators: Replace "translator-credits" with your name/username, and optionally an email or URL.
             translator_credits=_("translator-credits"),
             developers=["Elton de Andrade Rodrigues"],
@@ -204,7 +201,6 @@ class PanapidasApplication(Adw.Application):
         """Callback for the app.preferences action."""
         prefs_dialog = PreferencesPage()
         prefs_dialog.present(self.props.active_window)
-        print("app.preferences action activated")
 
     def _apply_delete_request(self, widget: DeleteDialog, response: str, id: str):
         if response != "delete":
@@ -281,14 +277,14 @@ def load_css():
     css_provider = Gtk.CssProvider()
     try:
         css_provider.load_from_resource(
-            "/eltonarodrigues/org/codeberg/panapidas/style.css"
+            const.APP_ID + "style.css"
         )
         display = Gdk.Display.get_default()
         Gtk.StyleContext.add_provider_for_display(
             display, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         )
     except Exception as e:
-        print(f"load_css error: {e}")
+        logger.error(f"load_css error: {e}")
 
 
 def main(VERSION):

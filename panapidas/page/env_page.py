@@ -22,6 +22,7 @@ from gi.repository import Adw, Gtk, GObject, Gio
 from panapidas.model.env_object import EnvObject
 from panapidas.widget.change_value_dialog import ChangeValueDialog
 from panapidas.widget.delete_dialog import DeleteDialog
+from panapidas.utils.logger import logger
 
 MOUSE_CLICK = 1
 
@@ -172,7 +173,7 @@ class EnvPage(Adw.NavigationPage):
             return
 
         if not finded:
-            print("EnvObject not found in the store.")
+            logger.warning("EnvObject not found in the store.")
             return
 
         deleted_group_env = self.env_store[position]
@@ -193,7 +194,7 @@ class EnvPage(Adw.NavigationPage):
         finded, position = self.env_store.find(env_object)
 
         if not finded:
-            print("EnvObject not found in the store.")
+            logger.warning("EnvObject not found in the store.")
             return
 
         env_group = self.env_store.get_item(position)

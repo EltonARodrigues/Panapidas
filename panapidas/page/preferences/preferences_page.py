@@ -56,12 +56,10 @@ class PreferencesPage(Adw.PreferencesDialog):
         raw = self.settings.get_string("client-certificates")
         self.client_cert_list = json.loads(raw)
 
-        print(f"Loading client certificates: {self.client_cert_list}")
         for cert in self.client_cert_list:
             self._add_cert_row(cert)
 
     def _delete_cert(self, button: Gtk.Button, row: Adw.ExpanderRow):
-        print(f"Deleting certificate for URL: {row.get_title()}")
         self.client_cert_list = [cert for cert in self.client_cert_list if cert["url"] != row.get_title()]
         self.settings.set_string("client-certificates", json.dumps(self.client_cert_list))
 

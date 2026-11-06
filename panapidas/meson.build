@@ -44,9 +44,20 @@ python = import('python')
 
 conf = configuration_data()
 conf.set('PYTHON', python.find_installation('python3').full_path())
+conf.set('PROFILE', profile)
+conf.set('NAME', project_name)
+conf.set('APPID', application_id)
 conf.set('VERSION', meson.project_version())
 conf.set('localedir', get_option('prefix') / get_option('localedir'))
 conf.set('pkgdatadir', pkgdatadir)
+
+configure_file(
+  input: 'const.py.in',
+  output: 'const.py',
+  configuration: conf,
+  install_dir: join_paths(python_dir, 'panapidas'),
+  install: true,
+)
 
 configure_file(
   input: 'panapidas.in',

@@ -23,10 +23,12 @@ import typing
 import gi
 gi.require_version("Soup", "3.0")
 from gi.repository import GObject, GLib, Gio, Soup
+from panapidas.utils.logger import logger
+from panapidas import const
 
 from urllib.parse import urlencode
 
-settings = Gio.Settings.new("eltonarodrigues.org.codeberg.panapidas")
+settings = Gio.Settings.new(const.APP_ID)
 
 class Response(GObject.GObject):
     __gtype_name__ = "Response"
@@ -124,7 +126,7 @@ def search_and_load_cert(url: str) -> Gio.TlsCertificate:
                 key = Gio.File.new_for_uri(cert["key"])
                 return Gio.TlsCertificate.new_from_files(pfx.get_path(), key.get_path())
             except GLib.Error as e:
-                print(f"Falha ao carregar certificado: {e.message}")
+                logger.error(f"Error to load certificate: {e.message}")
                 return None
 
 def convert_json(body: str):
@@ -226,7 +228,7 @@ def request(
         )
 
     except GLib.Error as e:
-        print(f"Connection failed. {e}")
+        logger.error(f"Connection failed. {e}")
 
         body = "Connection failed"
         if e.domain == "g-uri-quark":

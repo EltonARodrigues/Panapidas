@@ -24,6 +24,7 @@ from gi.repository import GLib, GObject, Gio
 
 from panapidas.model.requests import RequestGroup, RequestItem
 from panapidas.model.env_object import EnvObject
+from panapidas.utils.logger import logger
 
 APPLICATION_NAME = "panapidas"
 APPLICATION_DATA_FILENAME = "requests.json"
@@ -36,7 +37,7 @@ class DataManagement:
         self.data_dir = GLib.get_user_data_dir()
         self.data_path = os.path.join(self.data_dir, APPLICATION_DATA_FILENAME)
         self.env_path = os.path.join(self.data_dir, APPLICATION_ENVS_FILENAME)
-        print(self.data_path)
+        logger.info(self.data_path)
         self._request_group = None
 
     @staticmethod
@@ -94,7 +95,7 @@ class DataManagement:
 
     def _load(self, path: str) -> dict | None:
         if not os.path.exists(path):
-            print("Arquivo não encontrado. Retornando lista vazia.")
+            logger.info("Arquivo não encontrado. Retornando lista vazia.")
             return None
 
         with open(path, "r", encoding="utf-8") as f:
@@ -115,10 +116,6 @@ class DataManagement:
         if not data:
             return {}
 
-        # env_list = [
-        #     EnvObject(env["id"], env["name"]) for env in data["envs"]
-        # ]
-
         return data
 
     def save_envs(self, envs_store):
@@ -126,16 +123,12 @@ class DataManagement:
         envs = {}
         for i in range(envs_store.get_n_items()):
             env_group = envs_store.get_item(i)
-            # envs.append({
-            #     "id": env_group.id,
-            #     "name": env_group.name,
-            # })
             envs[env_group.id] = env_group.name
 
         with open(self.env_path, "w", encoding="utf-8") as f:
             json.dump(envs, f, indent=2, ensure_ascii=False)
 
-        print(f"Dados de envs salvos com sucesso em: {self.env_path}")
+        logger.info("Envs Group Saved!")
 
     def save_requests(self, store: Gio.ListStore):
 
@@ -147,7 +140,7 @@ class DataManagement:
         with open(self.data_path, "w", encoding="utf-8") as f:
             json.dump(self._request_group.to_dict(), f, indent=2, ensure_ascii=False)
 
-        print(f"Dados salvos com sucesso em: {self.data_path}")
+        logger.info("Request Saved!")
 
     @staticmethod
     def add_item_to_object(item: list[RequestItem], id: str, new_item: RequestItem):

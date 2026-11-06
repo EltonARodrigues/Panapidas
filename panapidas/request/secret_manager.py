@@ -20,12 +20,15 @@ import gi
 gi.require_version("Secret", "1")
 from gi.repository import Secret, GLib
 
+from panapidas.utils.logger import logger
+from panapidas import const
+
 
 class SecretManager:
 
-    def __init__(self, schema_nome: str):
+    def __init__(self):
         self.schema = Secret.Schema.new(
-            schema_nome,
+            const.APP_ID,
             Secret.SchemaFlags.NONE,
             {
                 "var_id": Secret.SchemaAttributeType.STRING,
@@ -49,7 +52,7 @@ class SecretManager:
                 if on_done:
                     on_done(True, None)
             except GLib.Error as e:
-                print(f"Error to save secret {name}: {e}")
+                logger.error(f"Error to save secret {name}: {e}")
                 if on_done:
                     on_done(False, e)
 
@@ -76,7 +79,7 @@ class SecretManager:
             )
             return True
         except GLib.Error as e:
-            print(f"Error to save secret {name}: {e}")
+            logger.error(f"Error to save secret {name}: {e}")
             return False
 
     def delete_secret(self, attr_filter: dict, callback = None):
@@ -96,13 +99,13 @@ class SecretManager:
             try:
                 deleted = source.clear_finish(result)
                 if deleted:
-                    print(f"Deleted secret(s) for {attr}")
+                    logger.info(f"Deleted secret(s) for {attr}")
                 else:
-                    print(f"No secret to delete for {attr}")
+                    logger.warning(f"No secret to delete for {attr}")
                 if callback:
                     callback(True)
             except GLib.Error as e:
-                print(f"Failed to delete secret: {e.message}")
+                logger.error(f"Failed to delete secret: {e.message}")
                 if callback:
                     callback(False)
 
@@ -123,7 +126,7 @@ class SecretManager:
                 if on_result:
                     on_result(envs, None)
             except GLib.Error as e:
-                print(f"Error to list secrets: {e}")
+                logger.error(f"Error to list secrets: {e}")
                 if on_result:
                     on_result([], e)
 

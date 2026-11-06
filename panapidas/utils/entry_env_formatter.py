@@ -116,7 +116,6 @@ def _on_entry_clicked(gesture, n_press, x, y, entry):
 def _on_change_env_key(key: str, root_widget: Gtk.Widget = None):
     active_env = ActiveEnvs()
 
-    print(f"Active env: {active_env.id}, key: {key}")
     if active_env.id is None:
         root_widget.emit("notify-signal", _("No active environment selected. Please select an environment to edit its variables."))
         return

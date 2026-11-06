@@ -1,10 +1,11 @@
 [Desktop Entry]
-Name=Panapidas
-Exec=panapidas
-Icon=dev.eltonarodrigues.panapidas
-Terminal=false
+Version=1.0
 Type=Application
-Categories=Utility;
-Keywords=GTK;
-StartupNotify=true
-DBusActivatable=true
+
+Name=Panapidas
+Comment=HTTP client API
+Categories=Development;GNOME;
+
+Icon=dev.eltonarodrigues.panapidas
+Exec=panapidas
+Terminal=false

@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>dev.eltonarodrigues.panapidas</id>
+  <id>@APPID@</id>
   
-  <name>Panapidas</name>
-  <summary>HTTP client API</summary>
-  
-  <metadata_license>CC-BY-4.0</metadata_license>
+  <name>@NAME@</name>
   <project_license>GPL-3.0-only</project_license>
-  
+  <metadata_license>CC0-1.0</metadata_license>
+  <summary>HTTP client API</summary>
   <description>
     <p>
       A HTTP Client for testing APIs written with GTK/LibAdwaita
     </p>
   </description>
   
-  <launchable type="desktop-id">dev.eltonarodrigues.panapidas.desktop</launchable>
+  <launchable type="desktop-id">@APPID@.desktop</launchable>
+  <releases>
+  </releases>
+  <translation type="gettext">@GETTEXT_PACKAGE@</translation>
+  <url type="homepage">https://eltonarodrigues.dev/panapidas</url>
+  <url type="contribute">https://codeberg.org/eltonarodrigues/Panapidas</url>
+  <url type="bugtracker">https://codeberg.org/eltonarodrigues/Panapidas/issues</url>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://codeberg.org/eltonarodrigues/Panapidas/src/branch/main/screenshots/Screenshot-1.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://codeberg.org/eltonarodrigues/Panapidas/src/branch/main/screenshots/Screenshot-2.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://codeberg.org/eltonarodrigues/Panapidas/src/branch/main/screenshots/Screenshot-3.png</image>
+    </screenshot>
+  </screenshots>
 </component>

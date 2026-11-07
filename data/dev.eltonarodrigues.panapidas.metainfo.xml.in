@@ -8,26 +8,46 @@
   <summary>HTTP client API</summary>
   <description>
     <p>
-      A HTTP Client for testing APIs written with GTK/LibAdwaita
+      A simple HTTP client written in GTK/LibAdwaita. Panapidas focuses on being a simple client with the essentials for using and testing APIs.
     </p>
   </description>
   
   <launchable type="desktop-id">@APPID@.desktop</launchable>
-  <releases>
-  </releases>
+  <content_rating type="oars-1.1" />
+  <developer id="eltonarodrigues.dev">
+    <name>Elton de Andrade Rodrigues</name>
+  </developer>
   <translation type="gettext">@GETTEXT_PACKAGE@</translation>
-  <url type="homepage">https://eltonarodrigues.dev/panapidas</url>
+  <url type="homepage">https://panapidas.eltonarodrigues.dev</url>
   <url type="contribute">https://codeberg.org/eltonarodrigues/Panapidas</url>
   <url type="bugtracker">https://codeberg.org/eltonarodrigues/Panapidas/issues</url>
+  <releases>
+    <release version="1.0.0" date="2026-11-10">
+    <description>
+      <p>First Release</p>
+      <ul>
+        <li>Create requests</li>
+        <li>Support for HTTP + REST requests</li>
+        <li>Group requests</li>
+        <li>Add certificates</li>
+        <li>Use of variables in requests</li>
+        <li>Pre/post-request JavaScript scripts</li>
+      </ul>
+    </description>
+    </release>
+  </releases>
   <screenshots>
     <screenshot type="default">
       <image>https://codeberg.org/eltonarodrigues/Panapidas/src/branch/main/screenshots/Screenshot-1.png</image>
+      <caption>Application showing a request</caption>
     </screenshot>
     <screenshot>
       <image>https://codeberg.org/eltonarodrigues/Panapidas/src/branch/main/screenshots/Screenshot-2.png</image>
+      <caption>Application showing a request with a request body</caption>
     </screenshot>
     <screenshot>
       <image>https://codeberg.org/eltonarodrigues/Panapidas/src/branch/main/screenshots/Screenshot-3.png</image>
+      <caption>Application showing a variables page</caption>
     </screenshot>
   </screenshots>
 </component>

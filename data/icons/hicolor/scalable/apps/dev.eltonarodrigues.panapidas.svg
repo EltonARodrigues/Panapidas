@@ -5,7 +5,7 @@
    height="128px"
    viewBox="0 0 128 128"
    version="1.1"
-   sodipodi:docname="eltonarodrigues.org.codeberg.panapidas.svg"
+   sodipodi:docname="dev.eltonarodrigues.panapidas.svg"
    inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -20,15 +20,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="6.421875"
-     inkscape:cx="64"
-     inkscape:cy="64"
+     inkscape:zoom="3.2109375"
+     inkscape:cx="13.23601"
+     inkscape:cy="69.761557"
      inkscape:window-width="1920"
      inkscape:window-height="1011"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer5" />
+     inkscape:current-layer="svg1" />
   <defs
      id="defs1">
     <marker
@@ -71,48 +71,10 @@
   <path
      id="path21-3-8"
      class=""
-     style="display:inline;enable-background:new;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:bevel;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
-     d="M 114.829 125.016 L 123.031 139.634 L 144.264 147.704 L 165.497 139.766 L 173.831 124.883 L 165.166 99.8141 L 145.19 94.9854 L 125.082 100.012 Z"
+     style="display:inline;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:bevel;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers;enable-background:new"
+     d="m 114.829,125.016 8.202,14.618 21.233,8.07 21.233,-7.938 8.334,-14.883 -8.665,-25.0689 -19.976,-4.8287 -20.108,5.0266 z"
      inkscape:label="Rosto"
      transform="matrix(1.84491,0,0,1.84491,-201.16922,-152.89203)" />
-  <g
-     id="g41-0"
-     transform="matrix(1.84491,0,0,1.84491,-196.06122,-109.70951)"
-     inkscape:label="Seta-olho-direita"
-     style="display:inline;enable-background:new">
-    <path
-       id="path30-05-9-2-4"
-       class=""
-       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:7;stroke-linecap:butt;stroke-linejoin:bevel;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#Triangle-7-9-6-1);paint-order:stroke fill markers"
-       d="M 152.841 88.6746 L 152.842 99.9758 Z"
-       inkscape:label="seta-direita" />
-    <path
-       id="path33-3-7-8-6-1-0-2"
-       class=""
-       style="fill:#ffffff;stroke-width:9.99999;stroke-linecap:square;stroke-linejoin:bevel"
-       d="M 154.821 89.8943 A 1.8475 1.89427 0 0 1 152.973 91.7885 A 1.8475 1.89427 0 0 1 151.126 89.8943 A 1.8475 1.89427 0 0 1 152.973 88 A 1.8475 1.89427 0 0 1 154.821 89.8943 Z"
-       inkscape:label="olho-direita" />
-  </g>
-  <g
-     id="g42-9"
-     transform="matrix(1.84491,0,0,1.84491,-196.06122,-107.75704)"
-     inkscape:label="Seta-olho-esquerda"
-     style="display:inline;enable-background:new">
-    <path
-       id="path30-05-9-6"
-       class=""
-       style="display:inline;enable-background:new;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:7;stroke-linecap:butt;stroke-linejoin:bevel;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#Triangle-7-9-7);paint-order:stroke fill markers"
-       d="M 131.484 91.8116 L 131.473 80.5103 Z"
-       inkscape:label="seta-esquerda"
-       transform="translate(-7.246966e-7)" />
-    <path
-       id="path33-3-7-8-6-1-1"
-       class=""
-       style="display:inline;enable-background:new;fill:#ffffff;stroke-width:9.99999;stroke-linecap:square;stroke-linejoin:bevel"
-       d="M 133.35 89.7743 A 1.8475 1.89427 0 0 1 131.502 91.6685 A 1.8475 1.89427 0 0 1 129.655 89.7743 A 1.8475 1.89427 0 0 1 131.502 87.88 A 1.8475 1.89427 0 0 1 133.35 89.7743 Z"
-       inkscape:label="olho-esquerdo"
-       transform="translate(-7.246966e-7)" />
-  </g>
   <path
      id="path37-6-2"
      class=""
@@ -130,10 +92,10 @@
   <path
      id="path44-2"
      class=""
-     style="display:inline;enable-background:new;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.8;stroke-linecap:square;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
-     d="M 148.575 198.76 L 159.52 199.261 L 165.737 192.319"
+     style="display:inline;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:3.32084;stroke-linecap:square;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke;enable-background:new"
+     d="m 56.325118,103.26431 18.451877,-0.0498 7.095615,-6.958864"
      inkscape:label="boca"
-     transform="matrix(1.84491,0,0,1.84491,-219.8434,-264.2008)" />
+     sodipodi:nodetypes="ccc" />
   <path
      id="rect44-0"
      class=""
@@ -142,7 +104,82 @@
      d="M -191.335 159.102 L -188.152 159.102 L -188.152 167.296 L -191.335 167.296 Z"
      inkscape:label="nariz" />
   <g
-     id="layer5"
-     style="display:inline;enable-background:new"
-     transform="translate(-160.759, 26.4262)" />
+     id="g2"
+     style="display:inline"
+     inkscape:label="Seta-olho-esquerda">
+    <path
+       sodipodi:type="star"
+       style="display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-linecap:square;paint-order:stroke fill markers;enable-background:new"
+       id="path1"
+       inkscape:flatsided="false"
+       sodipodi:sides="3"
+       sodipodi:cx="190.03394"
+       sodipodi:cy="38.196671"
+       sodipodi:r1="6.0570006"
+       sodipodi:r2="12.114001"
+       sodipodi:arg1="0.31362065"
+       sodipodi:arg2="1.3608182"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 195.79549,40.065284 -3.23653,9.97931 -7.02407,-7.792575 -7.02407,-7.792575 10.2606,-2.186735 10.26061,-2.186735 z"
+       inkscape:transform-center-x="-3.8858831"
+       inkscape:transform-center-y="-0.14337564"
+       transform="matrix(1.204808,0.25507197,-0.25507197,1.204808,-172.73171,-32.877895)"
+       inkscape:label="seta" />
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.220277;stroke-linecap:square;paint-order:stroke fill markers"
+       id="rect1"
+       width="12.687137"
+       height="13.133847"
+       x="40.130116"
+       y="40.894573"
+       inkscape:label="base" />
+    <circle
+       style="display:inline;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.232677;stroke-linecap:square;paint-order:stroke fill markers"
+       id="path2"
+       cx="46.481754"
+       cy="57.849148"
+       r="3.4873116"
+       inkscape:label="olho" />
+  </g>
+  <g
+     id="g2-3"
+     style="display:inline"
+     transform="rotate(-179.86095,66.216133,57.74525)"
+     inkscape:label="Seta-olho-direita">
+    <path
+       sodipodi:type="star"
+       style="display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-linecap:square;paint-order:stroke fill markers;enable-background:new"
+       id="path1-7"
+       inkscape:flatsided="false"
+       sodipodi:sides="3"
+       sodipodi:cx="190.03394"
+       sodipodi:cy="38.196671"
+       sodipodi:r1="6.0570006"
+       sodipodi:r2="12.114001"
+       sodipodi:arg1="0.31362065"
+       sodipodi:arg2="1.3608182"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 195.79549,40.065284 -3.23653,9.97931 -7.02407,-7.792575 -7.02407,-7.792575 10.2606,-2.186735 10.26061,-2.186735 z"
+       inkscape:transform-center-x="-3.8858831"
+       inkscape:transform-center-y="-0.14337564"
+       transform="matrix(1.204808,0.25507197,-0.25507197,1.204808,-172.73171,-32.877895)"
+       inkscape:label="seta" />
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.220277;stroke-linecap:square;paint-order:stroke fill markers"
+       id="rect1-5"
+       width="12.687137"
+       height="13.133847"
+       x="40.130116"
+       y="40.894573"
+       inkscape:label="base" />
+    <circle
+       style="display:inline;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.232677;stroke-linecap:square;paint-order:stroke fill markers"
+       id="path2-9"
+       cx="46.481754"
+       cy="57.849148"
+       r="3.4873116"
+       inkscape:label="olho" />
+  </g>
 </svg>

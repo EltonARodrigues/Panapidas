@@ -1,3 +1,7 @@
+metainfo_conf = configuration_data()
+metainfo_conf.set('APPID', application_id)
+metainfo_conf.set('NAME', project_name)
+
 desktop_file = i18n.merge_file(
         input: 'dev.eltonarodrigues.panapidas.desktop.in',
        output: 'dev.eltonarodrigues.panapidas.desktop',
@@ -36,12 +40,17 @@ if desktop_utils.found()
 endif
 
 appstream_file = i18n.merge_file(
-        input: 'dev.eltonarodrigues.panapidas.metainfo.xml.in',
-       output: 'dev.eltonarodrigues.panapidas.metainfo.xml',
-       po_dir: '../po',
-      install: true,
-  install_dir: get_option('datadir') / 'metainfo'
+  input: configure_file(
+    input: files('dev.eltonarodrigues.panapidas.metainfo.xml.in.in'),
+    output: 'dev.eltonarodrigues.panapidas.metainfo.xml.in',
+    configuration: metainfo_conf,
+  ),
+  output: application_id + '.metainfo.xml',
+  install: true,
+  install_dir: join_paths(join_paths('share'), 'metainfo'),
+  po_dir: join_paths(meson.project_source_root(), 'po'),
 )
+
 
 appstreamcli = find_program('appstreamcli', required: false, disabler: true)
 test('Validate appstream file', appstreamcli,

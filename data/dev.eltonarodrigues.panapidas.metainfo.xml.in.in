@@ -15,7 +15,7 @@
 
   <launchable type="desktop-id">@APPID@.desktop</launchable>
   <content_rating type="oars-1.1" />
-  <developer id="eltonarodrigues.dev">
+  <developer id="panapidas.eltonarodrigues.dev">
     <name>Elton de Andrade Rodrigues</name>
   </developer>
   <translation type="gettext">@GETTEXT_PACKAGE@</translation>

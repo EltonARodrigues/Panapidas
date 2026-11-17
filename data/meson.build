@@ -1,5 +1,6 @@
 metainfo_conf = configuration_data()
 metainfo_conf.set('APPID', application_id)
+metainfo_conf.set('GETTEXT_PACKAGE', meson.project_name())
 metainfo_conf.set('NAME', project_name)
 
 desktop_file = i18n.merge_file(

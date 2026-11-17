@@ -6,6 +6,7 @@ project('panapidas',
 
 application_id = 'dev.eltonarodrigues.panapidas'
 project_name = 'Panapidas'
+gettext_package = meson.project_name()
 
 if get_option('profile') == 'development'
   profile = 'Devel'

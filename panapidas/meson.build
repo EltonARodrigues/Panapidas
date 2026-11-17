@@ -71,6 +71,6 @@ configure_file(
 install_subdir(
   meson.current_source_dir(),
   exclude_directories: ['.mypy_cache', '__pycache__'],
-  exclude_files: ['panapidas.in', 'meson.build'],
+  exclude_files: ['panapidas.in', 'const.py.in', 'meson.build'],
   install_dir: python_dir,
 )

@@ -60,7 +60,7 @@ class PanapidasApplication(Adw.Application):
 
         self.envs_store = Gio.ListStore.new(EnvObject)
         self.secret_manager.load_envs(
-            {},          # ou None para todos do schema
+            {},
             on_result= self._config_envs,
         )
 
@@ -116,39 +116,83 @@ class PanapidasApplication(Adw.Application):
         self.dataManagement.save_envs(self.envs_store)
 
         if env_object.status == "DELETED":
-            self.secret_manager.delete_secret({"group_id": env_object.id})
-            send_notification(_("Environment Group deleted!"))
+            def on_group_deleted(success: bool):
+                if success:
+                    send_notification(_("Environment Group deleted!"))
+                else:
+                    send_notification(_("Failed to delete environment group"))
 
-            active_env = ActiveEnvs()
-            if active_env.id == env_object.id:
-                active_env.initialize(None, None, [])
+                active_env = ActiveEnvs()
+                if active_env.id == env_object.id:
+                    active_env.initialize(None, None, [])
 
+            self.secret_manager.delete_secret(
+                {"group_id": env_object.id},
+                callback=on_group_deleted,
+            )
             return
 
-        for env in env_object.dict_envs:
-            if env["status"] == "DELETED":
+        pending_ops = [
+            ("delete", env) for env in env_object.dict_envs
+            if env["status"] == "DELETED"
+        ] + [
+            ("save", env) for env in env_object.dict_envs
+            if env["status"] == "UPDATED"
+        ]
+
+        if not pending_ops:
+            return
+
+        failures = []
+
+        def run_next(index: int):
+            if index >= len(pending_ops):
+                if failures:
+                    send_notification(
+                        _("Some variables failed to sync: {names}").format(
+                            names=", ".join(failures)
+                        )
+                    )
+                else:
+                    send_notification(_("Environment updated successfully"))
+                self.envs_store.remove_all()
+                self.secret_manager.load_envs(
+                    {},
+                    on_result= self._config_envs,
+                )
+                return
+
+            op, env = pending_ops[index]
+
+            def make_callback(env=env):
+                def callback(success: bool):
+                    if not success:
+                        failures.append(env["key"])
+                    GLib.idle_add(run_next, index + 1)
+                return callback
+
+            if op == "delete":
                 self.secret_manager.delete_secret(
                     {
                         "var_id": str(env["id"]),
                         "group_id": env_object.id,
                         "variable": env["key"],
-                    }
+                    },
+                    callback=make_callback(),
                 )
-            
-            if env["status"] == "UPDATED":
-                self.secret_manager.save(env["key"], env["value"], {
-                    "var_id": str(env["id"]),
-                    "group_id": env_object.id,
-                    "variable": env["key"],
-                })
+            else:
+                self.secret_manager.save(
+                    env["key"],
+                    env["value"],
+                    {
+                        "var_id": str(env["id"]),
+                        "group_id": env_object.id,
+                        "variable": env["key"],
+                    },
+                    callback=make_callback(),
+                )
 
-        env_object.clear_deleted_envs()
-
-        finded, position, finded_store = self.dataManagement.find_item_index(self.envs_store, env_object.id)
-        if finded:
-            finded_store[position].envs = env_object.envs
-
-        send_notification(_("Environment Group Saved!"))
+        run_next(0)
 
     def do_activate(self):
         """Called when the application is activated.

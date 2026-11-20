@@ -37,50 +37,28 @@ class SecretManager:
             },
         )
 
-        self._service = None
-
-    def _get_service(self):
-        if self._service is None:
-            self._service = Secret.Service.get_sync(Secret.ServiceFlags.NONE, None)
-        return self._service
-
-    def save(self, name: str, value: str, attr: dict, on_done=None):
+    def save(self, name: str, value: str, attr: dict, callback=None):
 
         def _finish(source, result, _data):
             try:
-                source.store_finish(result)
-                if on_done:
-                    on_done(True, None)
+                Secret.password_store_finish(result)
+                if callback:
+                    callback(True)
             except GLib.Error as e:
                 logger.error(f"Error to save secret {name}: {e}")
-                if on_done:
-                    on_done(False, e)
+                if callback:
+                    callback(False)
 
-        self._get_service().store(
+        Secret.password_store(
             self.schema,
             attr,
             Secret.COLLECTION_DEFAULT,
             name,
-            Secret.Value(value, len(value), "str"),
-            None,  # Cancellable
-            _finish,
+            value,
             None,
+            _finish,
+            None
         )
-
-    def save_sync(self, name: str, value: str, attr: dict) -> bool:
-        try:
-            self._get_service().store_sync(
-                self.schema,
-                attr,
-                Secret.COLLECTION_DEFAULT,
-                name,
-                Secret.Value(value, len(value), "str"),
-                None,
-            )
-            return True
-        except GLib.Error as e:
-            logger.error(f"Error to save secret {name}: {e}")
-            return False
 
     def delete_secret(self, attr_filter: dict, callback = None):
 
@@ -97,7 +75,7 @@ class SecretManager:
 
         def on_clear_complete(source, result, user_data):
             try:
-                deleted = source.clear_finish(result)
+                deleted = Secret.password_clear_finish(result)
                 if deleted:
                     logger.info(f"Deleted secret(s) for {attr}")
                 else:
@@ -109,7 +87,7 @@ class SecretManager:
                 if callback:
                     callback(False)
 
-        self._get_service().clear(
+        Secret.password_clear(
             self.schema,
             attr,
             None,  # cancellable
@@ -121,7 +99,7 @@ class SecretManager:
 
         def _finish(source, result, _data):
             try:
-                items = source.search_finish(result)
+                items = Secret.password_search_finish(result)
                 envs = self._group_envs(items)
                 if on_result:
                     on_result(envs, None)
@@ -130,7 +108,7 @@ class SecretManager:
                 if on_result:
                     on_result([], e)
 
-        self._get_service().search(
+        Secret.password_search(
             self.schema,
             attr or {},
             Secret.SearchFlags.ALL
@@ -142,11 +120,13 @@ class SecretManager:
         )
 
     @staticmethod
-    def _group_envs(itens: list[dict]) ->  dict:
+    def _group_envs(itens: list) ->  dict:
         env_dict = {}
-        for index, item in enumerate(itens):
-            item.load_secret_sync(None)
-            secret_value = item.get_secret().get_text()
+
+        for item in itens:
+            secret = item.retrieve_secret_sync(None)
+            secret_value = secret.get().decode("utf-8")
+
 
             attr = dict(item.get_attributes() or {})
 
